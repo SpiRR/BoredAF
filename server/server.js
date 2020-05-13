@@ -1,22 +1,19 @@
-const server = require("express")();
-const path = require("path")
+const express = require("express");
+const app = express();
 const port = 9090;
 
-const homepage = require(
-    path.join(__dirname, "routes", "homepage.js")
-)
+app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 
-server.use(homepage, function (err) {
+
+const homepage = require("./routes/homepage.js")
+
+app.use("/", homepage);
+
+
+app.listen(port, err => {
     if (err) {
-        console.log('Error in homepage route');
-        return
-    }
-})
-
-
-server.listen(port, err => {
-    if (err) {
-        console.log("Error on server");
+        console.log("Error on app");
         return
     }
     console.log("Server is listening.....")
