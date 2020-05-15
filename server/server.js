@@ -16,9 +16,15 @@ Model.knex(knex);
 
 // -----------------------------------------------
 
-const homepage = require("./routes/homepage.js")
+const homepage = require("./routes/homepage.js");
+const users = require("./routes/users/users.js");
+const activities = require("./routes/activities/activities.js");
+const regions = require("./routes/regions/regions.js");
 
 app.use("/", homepage);
+app.use("/users", users);
+app.use("/activities", activities)
+app.use("/regions", regions)
 
 
 app.listen(port, err => {
