@@ -17,8 +17,10 @@ router.get("/scoreboard", async (req, res) => {
 
 // Register
 router.post("/register", (req, res) => {
-    const { email, password } = req.body;
-    if (email && password) {
+    const { email, password, repeatPassword } = req.body;
+
+    if (email && password && repeatPassword && password === repeatPassword) {
+        
         let doesUserExists = User.query().select().where({email: email}).limit(1);
 
         if (doesUserExists[0]) {
