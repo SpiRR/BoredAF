@@ -12,10 +12,24 @@ router.get('/', (req, res) => {
 // User info
 router.get("/scoreboard", async (req, res) => {
     let users = await User.query()
-    res.json(users)
+    res.send({Nickname: users[0].nickname, Score: users[0].userscore})
 });
 
 // Register
+router.post("/register", (req, res) => {
+    const { email, password } = req.body;
+    if (email && password) {
+        let doesUserExists = User.query().select().where({email: email}).limit(1);
+
+        if (doesUserExists[0]) {
+            return res.status(449).send('User already exsists');
+        }
+        res.send('hi')
+    }
+    
+    res.send('end')
+
+});
 
 // Login
 
