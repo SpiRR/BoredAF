@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router()
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 const User = require("../../models/User");
 const Region = require("../../models/Region");
 const Activity = require("../../models/Activity");
@@ -16,21 +18,45 @@ router.get("/scoreboard", async (req, res) => {
 });
 
 // Register
-router.post("/register", (req, res) => {
-    const { email, password, repeatPassword } = req.body;
+router.post("/register", async (req, res) => {
+    const { email, password, repeatPassword, region } = req.body;
 
-    if (email && password && repeatPassword && password === repeatPassword) {
-        
-        let doesUserExists = User.query().select().where({email: email}).limit(1);
-
+    if (email && password && repeatPassword && region && password === repeatPassword) {
+        const doesUserExists = await User.query().select().where({email: email}).limit(1);
         if (doesUserExists[0]) {
-            return res.status(449).send('User already exsists');
-        }
-        res.send('hi')
-    }
+            res.status(449).send('User already exsists');
+        } else {
+            if ( password.length < 8) {
+                res.send('Password does not meet the requirements')
+            } else {
+                bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
+                    if ( err ) { return res.status(500).send({response: 'Internal error'}); }
+                    
+                    // find region and add via ID
+                    try {
+                        const region = await Region.query().select().where({id: region_id})
     
-    res.send('end')
-
+                        const creatingUser = await User.query().insert({
+                            email,
+                            password: hashedPassword,
+                            region: region.region
+                        })
+    
+                        return res.status(200).send({
+                            email: creatingUser.email,
+                            region: creatingUser.region
+                        })    
+                    } catch (error) {
+                        return res.send(error)
+                    }
+                })
+            }
+        }
+    } else if ( password !== repeatPassword ) {
+        return res.status(404).send({ response: "Password and repeat password shoudl match" });
+    } else {
+        return res.status(404).send({ response: "Missing fields" });
+    }
 });
 
 // Login
