@@ -7,9 +7,32 @@ router.get('/', (req, res) => {
     res.send('activities');
 })
 
+// Add own activity
+router.post("/add/:id", async (req, res) => {
+    const { activity, activity_type_id } = req.body;
+    const { id } = req.params;
 
-router.get("/all-activities", async (req, res) => {
-    let activities = await Activity.query()
+    const done = false;
+
+    const newActivity = await Activity.query().insert({
+        activity,
+        activity_type_id,
+        user_id: id,
+        done
+    })
+    res.status(200).send({
+        activity: newActivity.activity
+    });
+
+});
+// Add a random activity
+
+// Add specific type of activity
+
+// Getting all activities
+router.get("/all/:id", async (req, res) => {
+    const { id } = req.params;
+    const activities = await Activity.query().select().where({user_id: id})
     res.json(activities)
 });
 

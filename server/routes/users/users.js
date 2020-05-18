@@ -22,13 +22,7 @@ router.get("/scoreboard", async (req, res) => {
 
 // Register
 router.post("/register", async (req, res) => {
-    const {
-        email,
-        password,
-        nickname,
-        repeatPassword,
-        region_id
-    } = req.body;
+    const { email, password, nickname, repeatPassword, region_id } = req.body;
 
     if (email && password && repeatPassword && region_id && password === repeatPassword) {
 
@@ -42,7 +36,6 @@ router.post("/register", async (req, res) => {
                         response: 'Internal error'
                     });
                 }
-                // find region and add via ID
                 try {
                     const doesUserExists = await User.query().select().where({
                         email: email
@@ -54,14 +47,7 @@ router.post("/register", async (req, res) => {
                         return res.status(449).send({ response: "User already exists" });
 
                     } else {
-                        // const regions = await Region.query().select().where({
-                        //     id: id
-                        // })
-
-                        // const region = regions.region
-                        // console.log(region)
-
-                        const creatingUser = await User.query().insert({
+                            const creatingUser = await User.query().insert({
                             email,
                             nickname,
                             password: hashedPassword,
