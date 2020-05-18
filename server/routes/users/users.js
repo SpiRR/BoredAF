@@ -14,48 +14,79 @@ router.get('/', (req, res) => {
 // User info
 router.get("/scoreboard", async (req, res) => {
     let users = await User.query()
-    res.send({Nickname: users[0].nickname, Score: users[0].userscore})
+    res.send({
+        Nickname: users[0].nickname,
+        Score: users[0].userscore
+    })
 });
 
 // Register
 router.post("/register", async (req, res) => {
-    const { email, password, repeatPassword, region } = req.body;
+    const {
+        email,
+        password,
+        nickname,
+        repeatPassword,
+        region_id
+    } = req.body;
 
-    if (email && password && repeatPassword && region && password === repeatPassword) {
-        const doesUserExists = await User.query().select().where({email: email}).limit(1);
-        if (doesUserExists[0]) {
-            res.status(449).send('User already exsists');
+    if (email && password && repeatPassword && region_id && password === repeatPassword) {
+
+        if (password.length < 8) {
+            res.send({response: 'Password does not meet the requirements'})
+
         } else {
-            if ( password.length < 8) {
-                res.send('Password does not meet the requirements')
-            } else {
-                bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
-                    if ( err ) { return res.status(500).send({response: 'Internal error'}); }
-                    
-                    // find region and add via ID
-                    try {
-                        const region = await Region.query().select().where({id: region_id})
-    
+            bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
+                if (err) {
+                    return res.status(500).send({
+                        response: 'Internal error'
+                    });
+                }
+                // find region and add via ID
+                try {
+                    const doesUserExists = await User.query().select().where({
+                        email: email
+                    }).limit(1);
+
+                    console.log(doesUserExists[0])
+
+                    if (doesUserExists[0]) {
+                        return res.status(449).send({ response: "User already exists" });
+
+                    } else {
+                        // const regions = await Region.query().select().where({
+                        //     id: id
+                        // })
+
+                        // const region = regions.region
+                        // console.log(region)
+
                         const creatingUser = await User.query().insert({
                             email,
+                            nickname,
                             password: hashedPassword,
-                            region: region.region
+                            region_id
                         })
-    
+                        // Not inserting (missing something)
                         return res.status(200).send({
                             email: creatingUser.email,
-                            region: creatingUser.region
-                        })    
-                    } catch (error) {
-                        return res.send(error)
+                            nickname: creatingUser.nickname,
+                            region_id: creatingUser.region_id
+                        });
                     }
-                })
-            }
+                } catch (error) {
+                    return res.send(error)
+                }
+            })
         }
-    } else if ( password !== repeatPassword ) {
-        return res.status(404).send({ response: "Password and repeat password shoudl match" });
+    } else if (password !== repeatPassword) {
+        return res.status(404).send({
+            response: "Password and repeat password should match"
+        });
     } else {
-        return res.status(404).send({ response: "Missing fields" });
+        return res.status(404).send({
+            response: "Missing fields"
+        });
     }
 });
 

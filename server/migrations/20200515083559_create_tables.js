@@ -5,22 +5,24 @@ exports.up = function (knex) {
             table.increments("id");
             table.string("region");
         })
+
         .createTable("activitytypes", table => {
             table.increments("id");
             table.string("type");
         })
+
         .createTable("users", table => {
             table.increments("id");
             table.string("email");
             table.string("nickname");
             table.string("password");
-            table.integer("userscore");
-
+        
             table.integer("region_id").unsigned().notNullable();
             table.foreign("region_id").references("regions.id");
 
             table.timestamp("created_at").defaultTo(knex.fn.now());
-        }) // activities
+        })
+         // activities
         .createTable("activities", table => {
             table.increments("id");
             table.string("activity").notNullable();
@@ -32,6 +34,7 @@ exports.up = function (knex) {
             table.integer("user_id").unsigned().notNullable();
             table.foreign("user_id").references("users.id");
         })
+
 };
 
 exports.down = function (knex) {
