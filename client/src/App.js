@@ -20,7 +20,6 @@ function App() {
     <Router>
     <div>
       <nav>
-        <span><i class="fab fa-bootstrap"></i></span>
         <Link to="/profile">Profile</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Sign-up</Link>

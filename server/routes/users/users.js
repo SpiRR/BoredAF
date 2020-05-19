@@ -12,11 +12,10 @@ router.get('/', (req, res) => {
 })
 
 // User info
-router.get("/scoreboard", async (req, res) => {
+router.get("/profile", async (req, res) => {
     let users = await User.query()
     res.send({
         Nickname: users[0].nickname,
-        Score: users[0].userscore
     })
 });
 

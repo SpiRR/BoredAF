@@ -24,15 +24,30 @@ router.post("/add/:id", async (req, res) => {
     });
 
 });
-// Add a random activity
 
-// Add specific type of activity
+// One route for adding an activity - random and/or specific
 
 // Getting all activities
 router.get("/all/:id", async (req, res) => {
     const { id } = req.params;
     const activities = await Activity.query().select().where({user_id: id})
     res.json(activities)
+});
+
+// Get all activities that are done
+router.get("/all/pending/:id", async (req, res) => {
+    // const { id } = req.params;
+    const done = false;
+    const pendingActivities = await Activity.query().select().where({done})
+    res.json(pendingActivities)
+});
+
+// Get all activities that are NOT done
+router.get("/all/done/:id", async (req, res) => {
+    // const { id } = req.params;
+    const done = true;
+    const doneActivities = await Activity.query().select().where({done})
+    res.json(doneActivities)
 });
 
 
