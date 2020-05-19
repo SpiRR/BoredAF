@@ -11,12 +11,11 @@ router.get('/', (req, res) => {
 router.post("/add/:id", async (req, res) => {
     const { activity, activity_type_id } = req.body;
     const { id } = req.params;
-
     const done = false;
 
     const newActivity = await Activity.query().insert({
-        activity,
-        activity_type_id,
+        activity, // input 
+        activity_type_id, // dropdown
         user_id: id,
         done
     })
