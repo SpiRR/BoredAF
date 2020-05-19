@@ -9,9 +9,10 @@ import './App.css';
 import Signup from './pages/Signup.js';
 import Login from './pages/Login.js';
 import Homepage from './pages/HomePage.js'
-import Activities from './pages/Activity/Activities.js'
-import Profile from './pages/ProfilePage.js'
-import CreateActivity from './pages/Activity/CreateActivity.js'
+import Activities from './pages/Activity/Activities.js';
+import Profile from './pages/ProfilePage.js';
+import CreateActivity from './pages/Activity/CreateActivity.js';
+import MyActivities from './pages/Activity/MyActivities.js';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
         <Link to="/">Home</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Sign up</Link>
-        <Link to="/activity">Let's do somthing</Link>
+        {/* <Link to="/activity">Let's do somthing</Link> */}
         <Link to="/profile">Profile</Link>
       </nav>
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/activity" component={Activities} />
         <Route path="/profile" component={Profile} />
         <Route path="/createactivity" component={CreateActivity} />
+        <Route path="/myactivities" component={MyActivities} />
 
       </Switch>
 
