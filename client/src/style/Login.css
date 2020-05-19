@@ -1,0 +1,17 @@
+#login-container {
+    width: 40vw;
+    display: block;
+    text-align: center;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#login-container input {
+    margin-top: 20px;
+}
+
+#login-container button {
+    margin-top: 20px;
+    width: 9vw;
+    text-align: center;
+}

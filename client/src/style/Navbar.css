@@ -1,0 +1,13 @@
+nav {
+    height: 5vh;
+    position: relative;
+}
+
+nav a {
+    text-transform: none;
+    text-decoration: none;
+    color: indigo;
+    margin-right: 15px;
+    float: right;
+}
+
