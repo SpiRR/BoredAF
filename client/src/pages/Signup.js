@@ -1,5 +1,6 @@
 import React,{ Component } from 'react';
-import Dropdown from 'react-dropdown';
+import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
 import 'react-dropdown/style.css';
 import '../style/Signup.css';
 
@@ -13,33 +14,36 @@ export default class Signup extends Component {
             <div id="signup-container">
                 <h3>Signup</h3>
                 <form>
-                    <input 
+                    <input class="form-control"
                         placeholder="E-mail"
                         type="text"
                         />
-                    <input 
+                    <input class="form-control"
                         placeholder="Nickname"
                         type="text"
                         />
-                    <input 
+                    <input class="form-control"
                         placeholder="password"
                         type="password"
                         />
-                    <input 
+                    <input class="form-control"
                         placeholder="Repeat password"
                         type="password"
                         />
 
-                    <Dropdown
-                        className='dropdown'
-                        menuClassName='myMenuClassName'
-                        options={regions} 
-                        // onChange={on._select}
-                        value={defaultOption}
-                        placeholder='Select you region'
-                    />
+                    <Dropdown>
+                    <Dropdown.Toggle variant="outline-primary primary" id="dropdown-basic">
+                        Regions
+                    </Dropdown.Toggle>
 
-                    <button>Signup</button>
+                    <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                    </Dropdown.Menu>
+                    </Dropdown>
+
+                    <Button variant="success">Signup</Button>
                 </form>
             </div>
         );

@@ -1,5 +1,5 @@
 #signup-container {
-    width: 40vw;
+    width: 20vw;
     display: block;
     text-align: center;
     margin: auto;
@@ -10,29 +10,15 @@
     margin-top: 20px;
 }
 
-#signup-container button {
-    margin-top: 20px;
-    width: 9vw;
-    text-align: center;
-    padding: 10px;
+
+.form-control, #dropdown-basic {
+    width: 20vw;
 }
 
-.dropdown {
-    display: block;
-    width: 7vw;
-    margin-top: 20px;
-    width: 9vw;
+#dropdown-basic {
+    margin-bottom: 20px;
 }
 
-.Dropdown-control {
-    height: 3vh;
-    
-}
-
-.Dropdown-arrow-wrapper .Dropdown-arrow {
-    top: 9px;
-}
-
-.Dropdown-placeholder {
-    margin-top: -8px;
+.btn-success {
+    width: 20vw;
 }
