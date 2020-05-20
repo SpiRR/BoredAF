@@ -23,7 +23,7 @@ export default class Signup extends Component {
                         type="text"
                         />
                     <input class="form-control"
-                        placeholder="password"
+                        placeholder="Password"
                         type="password"
                         />
                     <input class="form-control"
