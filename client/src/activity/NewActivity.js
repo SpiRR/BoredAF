@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import Random from '../images/random.svg';
 import '../style/NewActivities.css'
 
 export default class NewActivity extends Component {
@@ -12,13 +13,14 @@ export default class NewActivity extends Component {
             <div id="activities-container">
                 <h3>All right! What do you want to do?</h3>
                 <form id="own">
-                    <input  class="form-control"
+                    <h5>Add you own acitivity?</h5>
+                    <textarea  class="form-control"
                         placeholder="What's the activity?"
                         type="text"
                         />
 
                     <Dropdown>
-                    <Dropdown.Toggle variant="info" id="dropdown-basic">
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
                         Type of activity
                     </Dropdown.Toggle>
 
@@ -28,12 +30,13 @@ export default class NewActivity extends Component {
                     </Dropdown.Menu>
                     </Dropdown>
 
-                    <Button>Add to my activities!</Button>
+                    <Button variant="success">Add to my activities!</Button>
                 </form>
 
                 <div id="specific">
+                <h5>Any specific type of activity?</h5>
                 <Dropdown>
-                    <Dropdown.Toggle variant="info" id="dropdown-basic">
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
                         Type of activity
                     </Dropdown.Toggle>
 
@@ -43,19 +46,20 @@ export default class NewActivity extends Component {
                     </Dropdown.Menu>
                     </Dropdown>
 
-                    <div id="given-activity"> Load the given activity here</div>
+                    <div>Load the given activity here</div>
 
-                    <Button>Add</Button>
-                    <Button>New</Button>
+                    <Button className="boot-btn add" variant="success">Add</Button>
+                    <Button className="boot-btn new" variant="danger">New</Button>
                 </div>
 
                 <div id="random">
-                    <Button>Random</Button>
+                <h5>Surprice me!</h5>
+                    <Button variant="light"><img src={Random} alt="Random" /></Button>
 
                     <div>Random activity here</div>
 
-                    <Button>Add</Button>
-                    <Button>New</Button>
+                    <Button className="boot-btn add" variant="success">Add</Button>
+                    <Button className="boot-btn new" variant="danger">New</Button>
 
                 </div>
             </div>

@@ -8,15 +8,81 @@
    text-align: center;
 }
 
+#activities-container h5 {
+    margin-top: 20px;
+}
+
 #own, #specific, #random  {
     margin-top: 90px;
     width: 26vw;
     display: inline-block;
     text-align: center;
+    border: 1px dashed black;
+    height: 35vh;
+    position: relative;
+    margin-left: 10px;
+}
+
+#own #dropdown-basic, #specific #dropdown-basic {
+    width: 10vw;
+} 
+
+#own .btn {
+    width: 10vw;
+}
+
+#specific {
+    top: -106px;
+}
+
+#specific #dropdown-basic {
+    margin-top: 20px;
+}
+
+#specific .boot-btn, #random .boot-btn {
+    width: 5vw;
+    position: absolute;
+    bottom: 0;
+    margin: auto 110px;
+}
+
+#specific .add, #random .add {
+    left: 40px;
+    bottom: 10px;
+}
+
+#specific .new, #random .new {
+    right: 40px;
+    bottom: 10px;
+}
+
+#random {
+    top: -89px;
+}
+
+#random .btn-light {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 10vw;
+    height: 6vh;
+}
+
+#random img {
+    width: 2vw;
 }
 
 
-.form-control {
+#own .form-control {
     display: inline-block;
-    width: 15vw;
+    width: 10vw;
+    height: 76px;
+    resize: none;
+}
+
+.dropdown-menu {
+    width: 10vw;
+}
+
+#dropdown-basic::after {
+    display: inline-block;
 }
