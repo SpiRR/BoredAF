@@ -28,13 +28,14 @@
 #sort #dropdown-basic {
     margin-top: 20px;
     float: left;
-    width: 40px;
+    width: 3vw;
 }
 
 #sort #dropdown-basic img {
     float: left;
     width: 14px;
     left: -10px;
+    top: 5px;
 }
 
 #sort .dropdown {

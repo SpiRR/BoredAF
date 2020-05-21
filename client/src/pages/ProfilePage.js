@@ -21,7 +21,7 @@ export default class Profile extends Component {
 
             <div id="sort">
               <Dropdown>
-                    <Dropdown.Toggle variant="info" id="dropdown-basic">
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
                         <img src={Sort} alt="Sort"/>
                     </Dropdown.Toggle>
 

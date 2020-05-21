@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import '../style/Settings.css';
 
 export default class Settings extends Component {
     render () {
         return (
-            <div>
-                <h3>User settings</h3>
+            <div id="settings-container">
+                <h3>Settings</h3>
             </div>
             
         );
