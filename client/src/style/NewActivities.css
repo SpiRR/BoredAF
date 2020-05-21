@@ -1,0 +1,22 @@
+#activities-container {
+    width: 80vw;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#activities-container h3 {
+   text-align: center;
+}
+
+#own, #specific, #random  {
+    margin-top: 90px;
+    width: 26vw;
+    display: inline-block;
+    text-align: center;
+}
+
+
+.form-control {
+    display: inline-block;
+    width: 15vw;
+}

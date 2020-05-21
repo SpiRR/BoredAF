@@ -16,7 +16,9 @@ export default class Login extends Component {
                         placeholder="Password"
                         type="password"
                         />
+
                    <Button variant="success">Signup</Button>
+                   
                 </form>
                 <a href="/signup">Not a member yet?</a>
             </div>

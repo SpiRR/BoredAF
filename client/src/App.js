@@ -11,10 +11,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Signup from './pages/Signup.js';
 import Login from './pages/Login.js';
 import Homepage from './pages/HomePage.js'
-import Activities from './activity/Activities.js';
 import Profile from './pages/ProfilePage.js';
-import CreateActivity from './activity/CreateActivity.js';
+import NewActivity from './activity/NewActivity.js';
 import MyActivities from './activity/MyActivities.js';
+import Settings from './pages/Settings.js';
 
 function App() {
   return (
@@ -32,10 +32,10 @@ function App() {
         <Route exact path="/" component={Homepage} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        <Route path="/activity" component={Activities} />
         <Route path="/profile" component={Profile} />
-        <Route path="/createactivity" component={CreateActivity} />
+        <Route path="/newactivity" component={NewActivity} />
         <Route path="/myactivities" component={MyActivities} />
+        <Route path="/settings" component={Settings} />
 
       </Switch>
 

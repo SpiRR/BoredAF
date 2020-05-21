@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class MyActivities extends Component {
+export default class Settings extends Component {
     render () {
         return (
             <div>
-                <p><i>You don't have any activities... yet! :) </i></p>
+                <h3>User settings</h3>
             </div>
             
         );

@@ -1,0 +1,48 @@
+#profile-container {
+    width: 50vw;
+    margin: auto;
+    margin-top: 50px;
+}
+
+#profile-container img {
+    width: 25px;
+    cursor: pointer;
+    float: right;
+    position: relative;
+}
+
+#profile-container img:first-child {
+    margin-left: 10px;
+}
+
+#profile-container h5 {
+    margin-top: 20px;
+}
+
+
+#activity-container p{
+    margin-top: 100px;
+    text-align: center;
+}
+
+#sort #dropdown-basic {
+    margin-top: 20px;
+    float: left;
+    width: 40px;
+}
+
+#sort #dropdown-basic img {
+    float: left;
+    width: 14px;
+    left: -10px;
+}
+
+#sort .dropdown {
+    outline: none;
+    border: none;
+    background-color: white;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}

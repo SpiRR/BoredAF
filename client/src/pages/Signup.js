@@ -7,8 +7,6 @@ import '../style/Signup.css';
 export default class Signup extends Component {
 
     render () {
-        const regions = [1, 2];
-        const defaultOption = [0];
 
         return (
             <div id="signup-container">
