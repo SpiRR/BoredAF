@@ -15,6 +15,7 @@ import Profile from './pages/ProfilePage.js';
 import NewActivity from './activity/NewActivity.js';
 import MyActivities from './activity/MyActivities.js';
 import Settings from './pages/Settings.js';
+import ChangePW from './pages/ChangePassword.js';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/newactivity" component={NewActivity} />
         <Route path="/myactivities" component={MyActivities} />
         <Route path="/settings" component={Settings} />
+        <Route path="/changepw" component={ChangePW}/>
 
       </Switch>
 

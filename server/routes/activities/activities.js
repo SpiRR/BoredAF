@@ -1,11 +1,19 @@
 const express = require("express");
-const router = express.Router()
+const router = express.Router();
 const Activity = require("../../models/Activity");
+const ActivityTypes = require('../../models/ActivityType.js')
 
 // Forst end-point for activities
 router.get('/', (req, res) => {
     res.send('activities');
 })
+
+// Load activity types
+router.get("/activitytypes", async (req, res) => {
+    const activityTypes = await ActivityTypes.query().select('*')
+    console.log(activityTypes)
+    res.json(activityTypes)
+});
 
 // Add own activity
 router.post("/add/:id", async (req, res) => {
