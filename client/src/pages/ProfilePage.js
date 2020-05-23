@@ -8,6 +8,10 @@ import MyActivities from '../activity/MyActivities.js';
 
 export default class Profile extends Component {
 
+  // componentDidMount() {
+  //   fetch (`http://localhost:9090/activities//all/${user_id}`)
+  // }
+
     render () {
         const nickName = "Merinaraa";
         return (

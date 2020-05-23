@@ -7,14 +7,10 @@ import '../style/NewActivities.css'
 export default class NewActivity extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activity: '',
-            type: [],
-            selectedType: '',
-            error: null
-        }        
+        
     }
 
+    // Get random activity
     getRandom = async () => {
         await fetch("http://www.boredapi.com/api/activity/")
         .then( response =>  response.json())
@@ -26,29 +22,6 @@ export default class NewActivity extends Component {
                 })
             }
          ) 
-    }
-// Loads types from DB
-    componentDidMount(){
-        let initialTypes = [];
-        fetch("http://localhost:9090/activities/activitytypes", {
-            method: "GET"
-        })
-        .then(response => {
-            return response.json();
-        })
-        .then( data => {
-                initialTypes = data.map((type) => {
-                    // console.log(type.type)
-                    const typesToAppend = type;
-                    console.log(typesToAppend);     
-                    return typesToAppend.type;            
-               });
-               console.log(initialTypes)
-               this.setState({
-                   type: initialTypes
-               });               
-            }
-        )
     }
 
     // getSpecific = async () => {
@@ -65,7 +38,6 @@ export default class NewActivity extends Component {
     // }
     
     render () {
-        const { activity, type } = this.state;
         return (
             <div id="activities-container">
                 <h3>All right! What do you want to do?</h3>
@@ -76,34 +48,15 @@ export default class NewActivity extends Component {
                         type="text"
                         />
 
-                    <Dropdown>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic">
-                        Type of activity
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu value={this.state.selectedType} onChange={ (e) => this.setState({selectedType: e.target.value})}>
-                        {this.state.type.map((type) => 
-                        <Dropdown.Item key={type.id} value={type.id}>{type}</Dropdown.Item>
-                        )}
-                    </Dropdown.Menu>
-                    </Dropdown>
+                    {/* Dropdown (select) with type of activity here */}
 
                     <Button variant="success">Add to my activities!</Button>
                 </form>
 
                 <div id="specific">
                 <h5>Any specific type of activity?</h5>
-                <Dropdown>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic">
-                        Type of activity
-                    </Dropdown.Toggle>
 
-                    <Dropdown.Menu value={this.state.selectedType} onChange={ (e) => this.setState({selectedType: e.target.value})}>
-                        {this.state.type.map((type) => 
-                        <Dropdown.Item key={type.id} value={type.id}>{type}</Dropdown.Item>
-                        )}
-                    </Dropdown.Menu>
-                    </Dropdown>
+                    {/* Dropdown (select) with type of activity here */}
 
                     <div>Load the given activity here</div>
 
@@ -116,7 +69,7 @@ export default class NewActivity extends Component {
                     <Button variant="light" onClick={() => this.getRandom()}><img src={Random} alt="Random" /></Button>
 
                     <form>
-                        {activity}
+                        {/* {activity} */}
                         {/* {type} */}
                         <Button className="boot-btn add" variant="success">Add</Button>
                     </form>
