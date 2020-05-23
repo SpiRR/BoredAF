@@ -6,8 +6,30 @@ import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
 
 export default class Profile extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      status: []
+    }
+  }
+
+    // Sorting on all, pending, done onClick
+    showAll = () => {
+      console.log('all')
+    }
+    
+    showPending = () => {
+      console.log('pending')
+    }
+
+    showDone = () => {
+      console.log('completed')
+    }
+
     render () {
+
         const nickName = "Merinaraa";
+
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
@@ -20,9 +42,9 @@ export default class Profile extends Component {
             <div id="sort">
 
               <select name="done" id="dropdown">
-                <option value="all">All</option>
-                <option value="pending">Pending</option>
-                <option value="done">Completed</option>
+                <option value="all" onClick={ () => this.showAll() }>All</option>
+                <option value="pending" onClick={ () => this.showPending() }>Pending</option>
+                <option value="done" onClick={ () => this.showDone() }>Completed</option>
               </select>
             </div>
 

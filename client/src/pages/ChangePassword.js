@@ -9,6 +9,12 @@ export default class ChangePw extends Component {
                 <h3>Change password</h3>
 
                 <form>
+
+                <input className="form-control"
+                type="password"
+                placeholder="Old Password"
+                />
+
                 <input className="form-control"
                 type="password"
                 placeholder="New Password"
