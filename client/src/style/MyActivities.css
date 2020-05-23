@@ -1,0 +1,26 @@
+#list-container li{
+    list-style: none;
+    padding: 0;
+    /* display: grid;
+    grid-template-columns: 1fr; */
+}
+
+#list-container p {
+    text-align: left;
+}
+
+#list-container button {
+    border: none;
+    background-color: white;
+    position: relative;
+    display: inline-block;
+    float: right;
+    top: -42px;
+    padding: 0;
+    outline: none;
+}
+
+#list-container #completed img {
+    width: 2vw;
+    top: -5px;
+}

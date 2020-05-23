@@ -3,7 +3,6 @@ const router = express.Router()
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const User = require("../../models/User");
-const Region = require("../../models/Region");
 const Activity = require("../../models/Activity");
 
 // Forst end-point for users

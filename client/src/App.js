@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ Component } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -17,33 +17,41 @@ import MyActivities from './activity/MyActivities.js';
 import Settings from './pages/Settings.js';
 import ChangePW from './pages/ChangePassword.js';
 
-function App() {
-  return (
-    <Router>
-    <div>
-      <nav>
-        <Link to="/profile">Profile</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Sign-up</Link>
-        <Link to="/">Home</Link>
-        {/* <Link to="/activity">Let's do somthing</Link> */}
-      </nav>
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      user_id: ''
+    }
+  }
 
-      <Switch>
-        <Route exact path="/" component={Homepage} />
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/newactivity" component={NewActivity} />
-        <Route path="/myactivities" component={MyActivities} />
-        <Route path="/settings" component={Settings} />
-        <Route path="/changepw" component={ChangePW}/>
+ render() {
+    return (
+      <Router>
+      <div>
+        <nav>
+          <Link to="/profile">Profile</Link>
+          <Link to="/login">Login</Link>
+          <Link to="/signup">Sign-up</Link>
+          <Link to="/">Home</Link>
+          {/* <Link to="/activity">Let's do somthing</Link> */}
+        </nav>
 
-      </Switch>
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/profile" component={Profile} />
+          <Route path="/newactivity" component={NewActivity} />
+          <Route path="/myactivities" component={MyActivities} />
+          <Route path="/settings" component={Settings} />
+          <Route path="/changepw" component={ChangePW}/>
 
-      </div>
-    </Router>
-  );
+        </Switch>
+
+        </div>
+      </Router>
+    );
+  }
 }
 
-export default App;

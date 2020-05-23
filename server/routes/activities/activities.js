@@ -1,31 +1,23 @@
 const express = require("express");
 const router = express.Router();
 const Activity = require("../../models/Activity");
-const ActivityTypes = require('../../models/ActivityType.js')
 
 // Forst end-point for activities
 router.get('/', (req, res) => {
     res.send('activities');
 })
 
-// Load activity types
-router.get("/activitytypes", async (req, res) => {
-    const activityTypes = await ActivityTypes.query().select('*')
-    console.log(activityTypes)
-    res.json(activityTypes)
-});
-
 // Add own activity
 router.post("/add/:id", async (req, res) => {
-    const { activity, activity_type_id } = req.body;
+    const { activity, type } = req.body;
     const { id } = req.params;
     const done = false;
 
     const newActivity = await Activity.query().insert({
         activity, // input 
-        activity_type_id, // dropdown
-        user_id: id,
-        done
+        type,
+        done,
+        user_id: id
     })
     res.status(200).send({
         activity: newActivity.activity
@@ -34,6 +26,15 @@ router.post("/add/:id", async (req, res) => {
 });
 
 // One route for adding an activity - random and/or specific
+
+// Delete an activity
+router.delete("/deleteactivity/:activityid", async (req, res) => {
+    // res.send('delete')
+    const { activityid } = req.params;
+    const deleteActivity = await Activity.query().where({id: activityid}).del()
+
+    res.status(200).send({response: `Activity deleted with id: ${deleteActivity}`})
+});
 
 // Getting all activities
 router.get("/all/:id", async (req, res) => {

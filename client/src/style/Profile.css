@@ -25,25 +25,3 @@
     text-align: center;
 }
 
-#sort #dropdown-basic {
-    margin-top: 20px;
-    float: left;
-    width: 3vw;
-}
-
-#sort #dropdown-basic img {
-    float: left;
-    width: 14px;
-    left: -10px;
-    top: 5px;
-}
-
-#sort .dropdown {
-    outline: none;
-    border: none;
-    background-color: white;
-}
-
-.dropdown-toggle::after {
-    display: none;
-}

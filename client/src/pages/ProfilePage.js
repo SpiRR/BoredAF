@@ -3,15 +3,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import '../style/Profile.css';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
-import Sort from '../images/sort.svg'
 import MyActivities from '../activity/MyActivities.js';
 
 export default class Profile extends Component {
-
-  // componentDidMount() {
-  //   fetch (`http://localhost:9090/activities//all/${user_id}`)
-  // }
-
     render () {
         const nickName = "Merinaraa";
         return (
@@ -24,17 +18,12 @@ export default class Profile extends Component {
               </h5>
 
             <div id="sort">
-              <Dropdown>
-                    <Dropdown.Toggle variant="light" id="dropdown-basic">
-                        <img src={Sort} alt="Sort"/>
-                    </Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">All</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">Pending</Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">Done</Dropdown.Item>
-                    </Dropdown.Menu>
-                    </Dropdown>
+              <select name="done" id="dropdown">
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="done">Completed</option>
+              </select>
             </div>
 
               <div id="activity-container">
