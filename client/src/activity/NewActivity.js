@@ -8,20 +8,22 @@ export default class NewActivity extends Component {
     constructor(props) {
         super(props);
         
+        this.state = {
+            activity: [],
+            type: ''
+        }
     }
 
     // Get random activity
     getRandom = async () => {
         await fetch("http://www.boredapi.com/api/activity/")
         .then( response =>  response.json())
-        .then(
-            (data) => {
+        .then( data  => 
                 this.setState({
                     activity: data.activity,
-                    // type: data.type
+                    type: data.type
                 })
-            }
-         ) 
+            ) 
     }
 
     // getSpecific = async () => {
@@ -69,8 +71,8 @@ export default class NewActivity extends Component {
                     <Button variant="light" onClick={() => this.getRandom()}><img src={Random} alt="Random" /></Button>
 
                     <form>
-                        {/* {activity} */}
-                        {/* {type} */}
+                        {activity} 
+                        {type} 
                         <Button className="boot-btn add" variant="success">Add</Button>
                     </form>
 

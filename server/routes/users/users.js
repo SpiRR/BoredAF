@@ -11,10 +11,10 @@ router.get('/', (req, res) => {
 })
 
 // User info
-router.get("/profile", async (req, res) => {
+router.get("/profile/:id", async (req, res) => {
     let users = await User.query()
     res.send({
-        Nickname: users[0].nickname,
+        nickname: users[0].nickname,
     })
 });
 

@@ -1,12 +1,18 @@
 #list-container li{
     list-style: none;
     padding: 0;
-    /* display: grid;
-    grid-template-columns: 1fr; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 0fr;
+    bottom: -20px;
+    position: relative;
+    margin-bottom: 15px;
 }
 
-#list-container p {
+#list-container p, #list-container b {
     text-align: left;
+    display: inline-block;
+    margin: auto;
+    margin-left: inherit;
 }
 
 #list-container button {
@@ -15,12 +21,24 @@
     position: relative;
     display: inline-block;
     float: right;
-    top: -42px;
     padding: 0;
     outline: none;
 }
 
 #list-container #completed img {
     width: 2vw;
-    top: -5px;
+}
+
+#list-container img {
+    cursor: initial;
+}
+
+#list-container #delete img {
+    cursor: pointer;
+}
+
+#list-container #check {
+    position: relative;
+    left: -70px;
+    outline: none;
 }

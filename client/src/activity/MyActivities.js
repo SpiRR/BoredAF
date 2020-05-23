@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Completed from '../images/completed.svg';
 import Delete from '../images/delete.svg';
+import Pending from '../images/pending.svg';
 import '../style/MyActivities.css';
 
 export default class MyActivities extends Component {
@@ -10,7 +11,8 @@ export default class MyActivities extends Component {
         
         this.state = {
           activities: [],
-          activity: ''
+          activity: '',
+          status: []
         };
         this.deleteActivity = this.deleteActivity.bind(this);
       }
@@ -32,19 +34,54 @@ export default class MyActivities extends Component {
           .then( response => response.json() )
           .then( data => this.setState({activity: data.id}) )
       }
+
+      
+    // Sorting on all, pending, done onClick
+      // Testing needed
+    showAll = async () => {
+        console.log('all')
+        let user_id = 1
+        await fetch(`http://localhost:9090/activities/all/${user_id}`)
+        .then(response => response.json())
+        .then( data => this.setState({ status: data }))
+      }
+      
+      showPending = async () => {
+        console.log('pending')
+        let user_id = 1
+        await fetch(`http://localhost:9090/activities/all/pending/${user_id}`)
+        .then(response => response.json())
+        .then( data => this.setState({ status: data }))
+      }
+  
+      showDone = async () => {
+        console.log('completed')
+        let user_id = 1
+        await fetch(`http://localhost:9090/activities/all/done/${user_id}`)
+        .then(response => response.json())
+        .then( data => this.setState({ status: data }))
+      }
     
     render () {
-        const { activities } = this.state;
+        const { activities, status } = this.state;
 
         return (
             <div id="list-container">
+                <div id="sort">
+                    <select name="done" id="dropdown">
+                    <option value="all" onClick={ () => this.showAll() }>All</option>
+                    <option value="pending" onClick={ () => this.showPending() }>Pending</option>
+                    <option value="done" onClick={ () => this.showDone() }>Completed</option>
+                    </select>
+                </div>
+
                 {/* <p><i>You don't have any activities... yet! :) </i></p> */}
                 <ul>
                     { activities.map(activity => 
                         <li id="activity" key={activity.id}>
-                            <p>{activity.activity} </p> <b>{activity.done === 0 ? 'pending' : 'completed'}</b>
+                           <p>{activity.activity} </p> <b>{activity.done === 0 ? <img src={Pending} alt="complete activity"/>: <img src={Completed} alt="complete activity"/>}</b>
+                            {/* <button id="completed"><img src={Completed} alt="complete activity"  /></button> */}
                             <button key={activity.id} id="delete"><img type ="button" src={Delete} alt="delete activity" onClick={() => this.deleteActivity(activity.id)}/></button>
-                            <button id="completed"><img src={Completed} alt="complete activity"  /></button>
                         </li>
       
                     ) }
