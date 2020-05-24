@@ -27,6 +27,28 @@ export default class SpecificTypeActivity extends Component {
         ) 
      }
 
+     addActivity = async () => {
+        if (this.state.activity ) {
+            let user_id = 1
+            await fetch(`http://localhost:9090/activities/add/${user_id}`, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify({
+                    activity: this.state.activity,
+                    type: this.state.type
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then( response => console.log(response.json()) )
+            .then( data => console.log( data ) )
+            // .then( this.deleteText() ) 
+        } else {
+            console.log('Please click the randomizer')
+        }
+    }
+
     handleActivity = (e) => {
         this.setState({ activity: e.target.value })
     }
@@ -52,30 +74,73 @@ export default class SpecificTypeActivity extends Component {
             
             <Collapse in={this.state.open}>
                 <div>
+
                     <div className="type-container">
                         <Button
                         value={ this.state.type } 
-                        onClick={ () => this.getSpecific() }>
-                            Education
-                        </Button>
+                        onClick={ () => this.getSpecific('education') }>
+                        Education </Button>
+                        
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('recreational') }>
+                        Recreational</Button>
 
-                        <input className="form-control"
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('social') }>
+                        Social</Button>
+
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('diy') }>
+                        DIY</Button>
+
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('charity') }>
+                        Charity</Button>
+
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('cooking') }>
+                        Cooking</Button>
+
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('relaxation') }>
+                        Relaxation</Button>
+
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('music') }>
+                        Music</Button>
+                        
+                        <Button
+                        value={ this.state.type } 
+                        onClick={ () => this.getSpecific('busywork') }>
+                        Busywork</Button>
+
+                    </div>
+
+                    <div id="output">
+                        <input 
+                        className="form-control"
                         disabled
                         type="text"
                         onChange={ this.handleActivity.bind(this) } 
                         value={ this.state.activity } 
                         placeholder={ activity } 
                         />
+
+                        <Button 
+                        className="boot-btn add" 
+                        variant="success" 
+                        onClick={ () => this.addActivity() }>
+                            Add
+                        </Button>
                     </div>
 
-                    {/* <a href="#">Recreational</a>
-                    <a href="#">Social</a>
-                    <a href="#">DIY</a>
-                    <a href="#">Charity</a>
-                    <a href="#">Cooking</a>
-                    <a href="#">Relaxation</a>
-                    <a href="#">Music</a>
-                    <a href="#">Busywork</a> */}
                 </div>
             </Collapse >
 

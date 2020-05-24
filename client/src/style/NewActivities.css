@@ -18,6 +18,10 @@
 
 }
 
+#own option {
+    text-transform: capitalize;
+}
+
 #random img {
     width: 2vw;
 }

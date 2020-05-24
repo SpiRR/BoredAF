@@ -61,15 +61,16 @@ export default class EnteredActivity extends Component {
                         />
 
                    <select required onChange={this.handleType.bind(this)}>
-                       <option value={this.type}>Education</option>
-                       <option value={this.type}>Recreational</option>
-                       <option value={this.type}>Social</option>
-                       <option value={this.type}>DIY</option>
-                       <option value={this.type}>Charity</option>
-                       <option value={this.type}>Cooking</option>
-                       <option value={this.type}>Relaxation</option>
-                       <option value={this.type}>Music</option>
-                       <option value={this.type}>Busywork</option>
+                       <option>Types: </option>
+                       <option value={this.type}>education</option>
+                       <option value={this.type}>recreational</option>
+                       <option value={this.type}>social</option>
+                       <option value={this.type}>diy</option>
+                       <option value={this.type}>charity</option>
+                       <option value={this.type}>cooking</option>
+                       <option value={this.type}>relaxation</option>
+                       <option value={this.type}>music</option>
+                       <option value={this.type}>busywork</option>
                    </select>
 
                     <Button variant="success" onClick={ () => this.addActivity() }>Add to my activities!</Button>
