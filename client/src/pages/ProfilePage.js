@@ -9,7 +9,8 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nickname: ''
+      nickname: '',
+      email: ''
     }
   }
 
@@ -17,18 +18,19 @@ export default class Profile extends Component {
     let user_id = 1;
     fetch ( `http://localhost:9090/users/profile/${user_id}` )
       .then( response => response.json() )
-      .then( data => this.setState({ nickname: data.nickname }))
+      .then( data => this.setState({ nickname: data.nickname, email: data.email }))
 
   }
 
     render () {
-      const { nickname } = this.state;
+      const { nickname, email } = this.state;
 
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
+              <p>{email}</p>
 
-              <h5>Hi {nickname}
+              <h5>Hi {nickname} !
               <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
               <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
               </h5>

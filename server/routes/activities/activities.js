@@ -25,7 +25,12 @@ router.post("/add/:id", async (req, res) => {
 
 });
 
-// One route for adding an activity - random and/or specific
+// Update an activity from pending to complete (done = true)
+router.patch("/completed/:activityid", async (req, res) => {
+    const { activityid } = req.params;
+    const completedActivity = await Activity.query().where({id: activityid}).update({done:true})
+    res.status(200).send({response: `Activity with id ${activityid} is now ${completedActivity}`})
+});
 
 // Delete an activity
 router.delete("/deleteactivity/:activityid", async (req, res) => {

@@ -12,9 +12,10 @@ router.get('/', (req, res) => {
 
 // User info
 router.get("/profile/:id", async (req, res) => {
-    let users = await User.query()
+    let user = await User.query()
     res.send({
-        nickname: users[0].nickname,
+        nickname: user[0].nickname,
+        email: user[0].email
     })
 });
 
@@ -75,7 +76,13 @@ router.post("/register", async (req, res) => {
 });
 
 // Login
+router.post("/login", (req, res) => {
+    res.send('Login')
+});
 
 // Logout
+router.post("/logout", (req, res) => {
+    res.send('Logging out...')
+});
 
 module.exports = router;

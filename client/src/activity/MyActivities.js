@@ -11,9 +11,9 @@ export default class MyActivities extends Component {
         
         this.state = {
           activities: [],
-          activity: '',
-          status: []
+          activity: ''
         };
+
         this.deleteActivity = this.deleteActivity.bind(this);
       }
 
@@ -32,7 +32,7 @@ export default class MyActivities extends Component {
               credentials: "include"
           })
           .then( response => response.json() )
-          .then( data => this.setState({activity: data.id}) )
+          .then( data => this.setState({activity: data.id}) )          
       }
 
       
@@ -61,9 +61,25 @@ export default class MyActivities extends Component {
         .then(response => response.json())
         .then( data => this.setState({ status: data }))
       }
+
+      completeActivity = async (id) => {
+        console.log(id)
+        await fetch(`http://localhost:9090/activities/completed/${id}`, {
+          method: "PATCH",
+          credentials: "include",
+          body: JSON.stringify({
+            done: this.state.done
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+        },
+        })
+        .then( response => response.json() )
+        .then( data => console.log( data ) ) 
+      }
     
     render () {
-        const { activities, status } = this.state;
+        const { activities } = this.state;
 
         return (
             <div id="list-container">
@@ -79,7 +95,13 @@ export default class MyActivities extends Component {
                 <ul>
                     { activities.map(activity => 
                         <li id="activity" key={activity.id}>
-                           <p>{activity.activity} </p> <b>{activity.done === 0 ? <img src={Pending} alt="complete activity"/>: <img src={Completed} alt="complete activity"/>}</b>
+                           <p>{activity.activity}</p> 
+                           <p class="bold"><i>{activity.type}</i></p>
+                           <button onClick={ () => this.completeActivity(activity.id) }> 
+                              {activity.done === 0 ? <img src={Pending} alt="complete activity"/>
+                              : 
+                              <img src={Completed} alt="complete activity"/>}
+                           </button>
                             {/* <button id="completed"><img src={Completed} alt="complete activity"  /></button> */}
                             <button key={activity.id} id="delete"><img type ="button" src={Delete} alt="delete activity" onClick={() => this.deleteActivity(activity.id)}/></button>
                         </li>

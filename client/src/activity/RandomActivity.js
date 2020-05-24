@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Random from '../images/random.svg';
-import '../style/NewActivities.css'
+import Swal from 'sweetalert2';
+import '../style/NewActivities.css';
 
 export default class RandomActivity extends Component {
     constructor(props) {
@@ -42,7 +43,13 @@ export default class RandomActivity extends Component {
             })
             .then( response => console.log(response.json()) )
             .then( data => console.log( data ) )
-            // .then( this.deleteText() ) 
+            .then( Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'The activity has been added!',
+                showConfirmButton: false,
+                timer: 2000
+              }) )  
         } else {
             console.log('Please click the randomizer')
         }
@@ -55,11 +62,6 @@ export default class RandomActivity extends Component {
     handleType = (e) => {
         this.setState({ type: e.target.value })
     }
-
-    deleteInput = () => {
-        this.setState({ activity: '', type: '' })
-    }
-
 
     render () {
 

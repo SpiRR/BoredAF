@@ -2,10 +2,15 @@
     list-style: none;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 0fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
     bottom: -20px;
     position: relative;
     margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#list-container li .bold {
+    font-weight: 500;
 }
 
 #list-container p, #list-container b {
@@ -13,6 +18,10 @@
     display: inline-block;
     margin: auto;
     margin-left: inherit;
+}
+
+#list-container #sort {
+    margin: 20px auto;
 }
 
 #list-container button {
@@ -35,6 +44,7 @@
 
 #list-container #delete img {
     cursor: pointer;
+    width: 1vw;
 }
 
 #list-container #check {

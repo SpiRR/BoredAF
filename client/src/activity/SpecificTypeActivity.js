@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Collapse from 'react-bootstrap/Collapse';
+import Swal from 'sweetalert2';
 import '../style/NewActivities.css';
 
 export default class SpecificTypeActivity extends Component {
@@ -43,7 +44,13 @@ export default class SpecificTypeActivity extends Component {
             })
             .then( response => console.log(response.json()) )
             .then( data => console.log( data ) )
-            // .then( this.deleteText() ) 
+            .then( Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'The activity has been added!',
+                showConfirmButton: false,
+                timer: 2000
+              }) )  
         } else {
             console.log('Please click the randomizer')
         }
@@ -66,6 +73,7 @@ export default class SpecificTypeActivity extends Component {
 
             <Button 
                 onClick={ () => this.setState({open: true})}
+                variant="info"
                 aria-controls="Specific type"
                 aria-expanded={this.state.open}
             >
@@ -77,46 +85,55 @@ export default class SpecificTypeActivity extends Component {
 
                     <div className="type-container">
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('education') }>
                         Education </Button>
                         
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('recreational') }>
                         Recreational</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('social') }>
                         Social</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('diy') }>
                         DIY</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('charity') }>
                         Charity</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('cooking') }>
                         Cooking</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('relaxation') }>
                         Relaxation</Button>
 
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('music') }>
                         Music</Button>
                         
                         <Button
+                        variant="link"
                         value={ this.state.type } 
                         onClick={ () => this.getSpecific('busywork') }>
                         Busywork</Button>
