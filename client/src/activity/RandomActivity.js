@@ -25,23 +25,27 @@ export default class RandomActivity extends Component {
             ) 
     }
 
-    // Activity and type is undefined
+    // Need to check if its empty
     addActivity = async () => {
-        let user_id = 1
-        await fetch(`http://www.boredapi.com/api/add/${user_id}`, {
-            headers: {
-                'Content-Type': 'application/json'
-              },
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify({
-                activity: this.state.activity,
-                type: this.state.type
+        if (this.state.activity ) {
+            let user_id = 1
+            await fetch(`http://localhost:9090/activities/add/${user_id}`, {
+                method: "POST",
+                credentials: "include",
+                body: JSON.stringify({
+                    activity: this.state.activity,
+                    type: this.state.type
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                },
             })
-        })
-        .then( response => console.log(response.json()) )
-        .then( data => console.log( data ) )
-        // .then( this.deleteText() ) 
+            .then( response => console.log(response.json()) )
+            .then( data => console.log( data ) )
+            // .then( this.deleteText() ) 
+        } else {
+            console.log('Please click the randomizer')
+        }
     }
 
     handleActivity = (e) => {
@@ -67,9 +71,26 @@ export default class RandomActivity extends Component {
                 <Button variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button>
 
                 <form>
-                    <input onChange={this.handleActivity.bind(this)} value={this.state.activity} placeholder={activity} />
-                    <input onChange={this.handleType.bind(this)} className="form-control" value={this.state.type} placeholder={type} />
-                    <Button className="boot-btn add" variant="success" onClick={ () => this.addActivity()}>Add</Button>
+                    <input 
+                    disabled 
+                    onChange={this.handleActivity.bind(this)} 
+                    value={this.state.activity} 
+                    placeholder={activity} 
+                    />
+
+                    <input 
+                    disabled 
+                    onChange={this.handleType.bind(this)} 
+                    className="form-control" 
+                    value={this.state.type} 
+                    placeholder={type} 
+                    />
+
+                    <Button className="boot-btn add" 
+                    variant="success" 
+                    onClick={ () => this.addActivity() }>
+                        Add
+                    </Button>
                 </form>
 
             </div>

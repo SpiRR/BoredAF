@@ -12,15 +12,7 @@ export default class NewActivity extends Component {
             activity: '',
             type: ''
         }
-        // this.addActivity = this.addActivity.bind(this);
     }
-
-    // Get random activity
-
-
-
-
-
     
     render () {
         
@@ -30,12 +22,16 @@ export default class NewActivity extends Component {
                 
                 <EnteredActivity />
 
-                <SpecificTypeActivity />
-
                 <RandomActivity 
                     activity={this.props.activity}
                     type={this.props.type}
                 />
+
+                <SpecificTypeActivity 
+                    activity={this.props.activity}
+                    type={this.props.type}
+                />
+
         
             </div>
         );
