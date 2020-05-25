@@ -49,7 +49,7 @@ router.get("/all/:id", async (req, res) => {
 });
 
 // Get all activities that are done
-router.get("/all/pending/:id", async (req, res) => {
+router.get("/pending/:id", async (req, res) => {
     // const { id } = req.params;
     const done = false;
     const pendingActivities = await Activity.query().select().where({done})
@@ -57,7 +57,7 @@ router.get("/all/pending/:id", async (req, res) => {
 });
 
 // Get all activities that are NOT done
-router.get("/all/done/:id", async (req, res) => {
+router.get("/done/:id", async (req, res) => {
     // const { id } = req.params;
     const done = true;
     const doneActivities = await Activity.query().select().where({done})

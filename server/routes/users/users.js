@@ -81,8 +81,21 @@ router.post("/login", (req, res) => {
 });
 
 // Logout
-router.post("/logout", (req, res) => {
-    res.send('Logging out...')
-});
+// router.post("/users/logout", function(req, res) {
+//     const sess = req.session;
+//     if (sess) {
+//         // delete session object
+//         sess.destroy(function(err) {
+//             if(err) {
+//                 return next(err);
+//             } else {
+//                 req.session = null; // can it be cleared completely?
+//                 console.log("logout successful");
+//                 // return res.redirect("/");
+//             }
+//         });
+//     }  
+//     // res.send("Hi")
+// });
 
 module.exports = router;

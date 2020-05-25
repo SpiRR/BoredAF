@@ -24,6 +24,8 @@ const knex = Knex(knexFile.development);
 
 Model.knex(knex);
 
+// Cookie
+
 // -----------------------------------------------
 const homepage = require("./routes/homepage.js");
 const users = require("./routes/users/users.js");
