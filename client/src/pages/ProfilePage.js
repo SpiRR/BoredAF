@@ -14,12 +14,12 @@ export default class Profile extends Component {
     }
   }
 
+  // Fetching user-info
   componentDidMount() {
     let user_id = 1;
     fetch ( `http://localhost:9090/users/profile/${user_id}` )
       .then( response => response.json() )
       .then( data => this.setState({ nickname: data.nickname, email: data.email }))
-
   }
 
     render () {

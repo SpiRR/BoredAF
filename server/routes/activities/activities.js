@@ -28,23 +28,23 @@ router.post("/add/:id", async (req, res) => {
 // Update an activity from pending to complete (done = true)
 router.patch("/completed/:activityid", async (req, res) => {
     const { activityid } = req.params;
-    const completedActivity = await Activity.query().where({id: activityid}).update({done:true})
-    res.status(200).send({response: `Activity with id ${activityid} is now ${completedActivity}`})
+    const done = true;
+    await Activity.query().where({id: activityid}).update({done}).limit(1);
+    res.status(200).send({response: `Activity completed with id: ${activityid}`})
 });
 
 // Delete an activity
 router.delete("/deleteactivity/:activityid", async (req, res) => {
-    // res.send('delete')
     const { activityid } = req.params;
-    const deleteActivity = await Activity.query().where({id: activityid}).del()
-    res.status(200).send({response: `Activity deleted with id: ${deleteActivity}`})
+    const deletedActivity = await Activity.query().where({id: activityid}).del().limit(1);
+    res.status(200).send({deletedActivity})
 });
 
 // Getting all activities
 router.get("/all/:id", async (req, res) => {
     const { id } = req.params;
     const activities = await Activity.query().select().where({user_id: id})
-    res.json(activities)
+    res.status(200).json(activities)
 });
 
 // Get all completed activities
@@ -52,7 +52,7 @@ router.get("/pending/:id", async (req, res) => {
     // const { id } = req.params;
     const done = false;
     const pendingActivities = await Activity.query().select().where({done})
-    res.json(pendingActivities)
+    res.status(200).json(pendingActivities)
 });
 
 // Get all pending activities
@@ -60,7 +60,7 @@ router.get("/done/:id", async (req, res) => {
     // const { id } = req.params;
     const done = true;
     const doneActivities = await Activity.query().select().where({done})
-    res.json(doneActivities)
+    res.status(200).json(doneActivities)
 });
 
 

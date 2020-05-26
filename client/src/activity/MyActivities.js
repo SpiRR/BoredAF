@@ -29,10 +29,18 @@ export default class MyActivities extends Component {
         // You need to reload page for seeing which items are removed (that you have clicked on)
           await fetch(`http://localhost:9090/activities/deleteactivity/${id}`, {
               method: "DELETE",
-              credentials: "include"
+              credentials: "include",
           })
           .then( response => response.json() )
-          .then( data => this.setState({activity: data.id}) )          
+          .then( (data) => {
+            let activities = this.state.activities.filter((activity) => {
+              return id !== activity.id;
+            });
+            this.setState( state => {
+              state.activities = activities;
+              return state;
+            })
+          })          
       }
 
       // Filtering activities done, all and pending
@@ -60,9 +68,10 @@ export default class MyActivities extends Component {
         .then( data => this.setState({ activities: data }))
       }
 
-      completeActivity = async (id) => {
-        console.log(id)
-        await fetch(`http://localhost:9090/activities/completed/${id}`, {
+      // Dosen't tick complete in browser
+      completeActivity = async (activityid) => {
+        console.log(activityid)
+        await fetch(`http://localhost:9090/activities/completed/${activityid}`, {
           method: "PATCH",
           credentials: "include",
           body: JSON.stringify({
@@ -73,13 +82,13 @@ export default class MyActivities extends Component {
         },
         })
         .then( response => response.json() )
-        .then( data => console.log({ activities: data }) ) 
+        .then( data => console.log(data)) 
       }
 
       handleChange = (e) => {
-        this.setState({ status: e.target.value })
+        this.setState({ value: e.target.value })
       }
-    
+
     render () {
         const { activities } = this.state;
 
@@ -87,9 +96,9 @@ export default class MyActivities extends Component {
             <div id="list-container">
                 <div id="sort">
                     <select name="done" id="dropdown" >
-                      <option value="all" onClick={ () => this.showAll() } onChange={this.handleChange.bind(this)}>All</option>
-                      <option value="pending" onClick={ () => this.showPending() } onChange={this.handleChange.bind(this)}>Pending</option>
-                      <option value="done" onClick={ () => this.showDone() } onChange={this.handleChange.bind(this)}>Completed</option>
+                      <option value="all" onClick={ () => this.showAll() } onChange={ this.handleChange.bind(this) }>All</option>
+                      <option value="pending" onClick={ () => this.showPending() } onChange={ this.handleChange.bind(this) }>Pending</option>
+                      <option value="done" onClick={ () => this.showDone() } onChange={ this.handleChange.bind(this) }>Completed</option>
                     </select>
                 </div>
 
@@ -101,12 +110,19 @@ export default class MyActivities extends Component {
                            <p className="italic"><i>{activity.type}</i></p>
 
                             <button 
-                            onClick={ () => this.completeActivity(activity.id) }> 
-                                {activity.done === 0 ? <img src={Pending} alt="complete activity"/>
+                            onClick={ () => this.completeActivity(activity.id) } 
+                            onChange={ this.handleChange.bind(this) }> 
+                                {activity.done === 0 ? <img src={Pending} alt=""/>
                                 : 
-                                <img src={Completed} alt="complete activity"/>}
+                                <img src={Completed} alt=""/>}
                             </button>
-                            <button key={activity.id} id="delete"><img type ="button" src={Delete} alt="delete activity" onClick={() => this.deleteActivity(activity.id)}/></button>
+
+                            <button 
+                            id="delete" 
+                            key={activity.id} 
+                            onClick={ () => this.deleteActivity(activity.id) }>
+                              <img type ="button"src={Delete} alt="delete activity" />
+                            </button>
                         </li>
       
                     )}
