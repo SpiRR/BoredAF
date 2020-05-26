@@ -41,7 +41,7 @@ export default class MyActivities extends Component {
         let user_id = 1
         await fetch(`http://localhost:9090/activities/all/${user_id}`)
         .then(response => response.json())
-        .then( data => this.setState({ status: data }))
+        .then( data => this.setState({ activities: data }))
       }
 
       showPending = async () => {
@@ -49,7 +49,7 @@ export default class MyActivities extends Component {
         let user_id = 1
         await fetch(`http://localhost:9090/activities/pending/${user_id}`)
         .then(response => response.json())
-        .then( data => this.setState({ status: data }))
+        .then( data => this.setState({ activities: data }))
       }
   
       showDone = async () => {
@@ -57,7 +57,7 @@ export default class MyActivities extends Component {
         let user_id = 1
         await fetch(`http://localhost:9090/activities/done/${user_id}`)
         .then(response => response.json())
-        .then( data => this.setState({ status: data }))
+        .then( data => this.setState({ activities: data }))
       }
 
       completeActivity = async (id) => {
@@ -73,7 +73,7 @@ export default class MyActivities extends Component {
         },
         })
         .then( response => response.json() )
-        .then( data => this.setState({ data: [...this.state.done]} ) ) 
+        .then( data => console.log({ activities: data }) ) 
       }
 
       handleChange = (e) => {
@@ -81,7 +81,7 @@ export default class MyActivities extends Component {
       }
     
     render () {
-        const { activities, status } = this.state;
+        const { activities } = this.state;
 
         return (
             <div id="list-container">
@@ -98,7 +98,7 @@ export default class MyActivities extends Component {
                     { activities.map(activity => 
                         <li id="activity" key={activity.id}>
                            <p>{activity.activity}</p> 
-                           <p className="bold"><i>{activity.type}</i></p>
+                           <p className="italic"><i>{activity.type}</i></p>
 
                             <button 
                             onClick={ () => this.completeActivity(activity.id) }> 
@@ -109,7 +109,7 @@ export default class MyActivities extends Component {
                             <button key={activity.id} id="delete"><img type ="button" src={Delete} alt="delete activity" onClick={() => this.deleteActivity(activity.id)}/></button>
                         </li>
       
-                    ) }
+                    )}
                 </ul>
             </div>
             

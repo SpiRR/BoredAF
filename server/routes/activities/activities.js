@@ -37,7 +37,6 @@ router.delete("/deleteactivity/:activityid", async (req, res) => {
     // res.send('delete')
     const { activityid } = req.params;
     const deleteActivity = await Activity.query().where({id: activityid}).del()
-
     res.status(200).send({response: `Activity deleted with id: ${deleteActivity}`})
 });
 
@@ -48,7 +47,7 @@ router.get("/all/:id", async (req, res) => {
     res.json(activities)
 });
 
-// Get all activities that are done
+// Get all completed activities
 router.get("/pending/:id", async (req, res) => {
     // const { id } = req.params;
     const done = false;
@@ -56,7 +55,7 @@ router.get("/pending/:id", async (req, res) => {
     res.json(pendingActivities)
 });
 
-// Get all activities that are NOT done
+// Get all pending activities
 router.get("/done/:id", async (req, res) => {
     // const { id } = req.params;
     const done = true;
