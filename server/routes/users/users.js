@@ -21,9 +21,9 @@ router.get("/profile/:id", async (req, res) => {
 
 // Register
 router.post("/register", async (req, res) => {
-    const { email, password, nickname, repeatPassword, region_id } = req.body;
+    const { email, nickname, password, repeatPassword } = req.body;
 
-    if (email && password && repeatPassword && region_id && password === repeatPassword) {
+    if (email && password && repeatPassword && password === repeatPassword) {
 
         if (password.length < 8) {
             res.send({response: 'Password does not meet the requirements'})
@@ -49,14 +49,12 @@ router.post("/register", async (req, res) => {
                             const creatingUser = await User.query().insert({
                             email,
                             nickname,
-                            password: hashedPassword,
-                            region_id
+                            password: hashedPassword
                         })
                         // Not inserting (missing something)
                         return res.status(200).send({
                             email: creatingUser.email,
-                            nickname: creatingUser.nickname,
-                            region_id: creatingUser.region_id
+                            nickname: creatingUser.nickname
                         });
                     }
                 } catch (error) {
@@ -77,8 +75,58 @@ router.post("/register", async (req, res) => {
 
 // Login
 router.post("/login", (req, res) => {
-    res.send('Login')
+    
 });
+
+// Change password
+router.patch("/changepw/:id", async (req, res) => {
+    const id = req.params.id;
+    const { newPassword, repeatNewPassword } = req.body;
+
+      if ( newPassword && repeatNewPassword && newPassword === repeatNewPassword ) {
+            if ( newPassword.length < 8 ) {
+                return res.status(400).send({ response: "Password does not fulfill the requirements" });
+            } else {
+            // hash new password
+            bcrypt.hash(newPassword, saltRounds, async (error, hashedNewPassword) => {
+                if (error) {
+                    return res.status(500).send({ });
+                }
+
+                try {
+                    const user_id = id;
+
+                    const updatePassword = await User.query().update({
+                        password: hashedNewPassword
+                    }).where({id : user_id});
+     
+                    console.log(user_id);
+
+                    if (updatePassword < 1) {
+                        return res.send({response: 'Ups..'});
+                    }
+
+                    res.status(200).send({
+                        response: 'Password has succeccfully been updated!',
+                        updatePassword: updatePassword,
+                        user_id: user_id 
+                    });
+
+                } catch (error) {
+                    console.log(error)
+                    return res.status(500).send({ response: "Something went wrong with the database" });
+                }
+            })
+        }
+    } else if (newPassword !== repeatNewPassword) {
+        return res.send({ response: "Password and repeat password are not the same" });
+    } else {
+        return res.send({ response: "Missing fields" });
+    }
+})
+
+    
+
 
 // Logout
 // router.post("/users/logout", function(req, res) {

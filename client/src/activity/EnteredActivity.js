@@ -28,8 +28,8 @@ export default class EnteredActivity extends Component {
                     'Content-Type': 'application/json'
                 },
             })
-            .then( response => console.log(response.json()) )
-            .then( data => console.log( data ) )
+            .then( response => response.json() )
+            // .then( data => console.log( data ) )
             .then( Swal.fire({
                 position: 'center',
                 icon: 'success',
@@ -52,10 +52,12 @@ export default class EnteredActivity extends Component {
 
     render () {
         return (
-            <div  id="own">
+            <div id="own">
                 <form>
                     <h5>Add you own acitivity?</h5>
-                    <input className="form-control"
+                    <input 
+                        id="mainInput"
+                        className="form-control"
                         placeholder="What's the activity?"
                         type="text"
                         onChange={this.handleActivity.bind(this)}

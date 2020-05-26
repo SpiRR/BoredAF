@@ -29,8 +29,8 @@ router.post("/add/:id", async (req, res) => {
 router.patch("/completed/:activityid", async (req, res) => {
     const { activityid } = req.params;
     const done = true;
-    await Activity.query().where({id: activityid}).update({done}).limit(1);
-    res.status(200).send({response: `Activity completed with id: ${activityid}`})
+    const completedActivity = await Activity.query().where({id: activityid}).update({done}).limit(1);
+    res.status(200).send({response: completedActivity})
 });
 
 // Delete an activity

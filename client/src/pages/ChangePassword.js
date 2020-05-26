@@ -12,11 +12,6 @@ export default class ChangePw extends Component {
 
                 <input className="form-control"
                 type="password"
-                placeholder="Old Password"
-                />
-
-                <input className="form-control"
-                type="password"
                 placeholder="New Password"
                 />
 

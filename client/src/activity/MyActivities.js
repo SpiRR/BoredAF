@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Completed from '../images/completed.svg';
 import Delete from '../images/delete.svg';
+import Completed from '../images/completed.svg';
 import Pending from '../images/pending.svg';
 import '../style/MyActivities.css';
 
@@ -12,10 +12,11 @@ export default class MyActivities extends Component {
         this.state = {
           activities: [],
           activity: '',
-          done: ''
+          done: null
         };
 
         this.deleteActivity = this.deleteActivity.bind(this);
+        this.completeActivity = this.completeActivity.bind(this);
       }
 
       componentDidMount() {
@@ -43,7 +44,6 @@ export default class MyActivities extends Component {
           })          
       }
 
-      // Filtering activities done, all and pending
       showAll = async () => {
         console.log('all')
         let user_id = 1
@@ -68,7 +68,7 @@ export default class MyActivities extends Component {
         .then( data => this.setState({ activities: data }))
       }
 
-      // Dosen't tick complete in browser
+      //ticks all
       completeActivity = async (activityid) => {
         console.log(activityid)
         await fetch(`http://localhost:9090/activities/completed/${activityid}`, {
@@ -82,8 +82,18 @@ export default class MyActivities extends Component {
         },
         })
         .then( response => response.json() )
-        .then( data => console.log(data)) 
-      }
+        .then( data => {
+          if ( data.response === 1 ) {
+            let done = data.response;
+            this.setState({ done: data.done})
+            console.log({done})
+          } else {
+            console.error('Error')
+          }
+        })
+      } 
+
+      // console.log({ done: data })
 
       handleChange = (e) => {
         this.setState({ value: e.target.value })
@@ -107,14 +117,13 @@ export default class MyActivities extends Component {
                     { activities.map(activity => 
                         <li id="activity" key={activity.id}>
                            <p>{activity.activity}</p> 
-                           <p className="italic"><i>{activity.type}</i></p>
+                           
+                           <p className="italic"> <i>{activity.type}</i> </p>
 
                             <button 
-                            onClick={ () => this.completeActivity(activity.id) } 
-                            onChange={ this.handleChange.bind(this) }> 
-                                {activity.done === 0 ? <img src={Pending} alt=""/>
-                                : 
-                                <img src={Completed} alt=""/>}
+                            value={activity.done} 
+                            onClick={ () => this.completeActivity(activity.id) }> 
+                              <img src={ activity.done === 1 ?  Completed : Pending } alt="..."/>
                             </button>
 
                             <button 
