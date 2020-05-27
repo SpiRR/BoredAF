@@ -69,8 +69,8 @@ export default class RandomActivity extends Component {
 
         return (
             <div id="random">
-            <h5>Surprice me!</h5>
-                <Button variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button>
+                
+                <Button id="randomBtn" variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button>
 
                 <form>
                     <input 
@@ -80,15 +80,15 @@ export default class RandomActivity extends Component {
                     placeholder={activity} 
                     />
 
-                    <input 
-                    disabled 
+                    <p 
                     onChange={this.handleType.bind(this)} 
-                    className="form-control" 
                     value={this.state.type} 
-                    placeholder={type} 
-                    />
+                    >
+                        {this.state.type} 
+                    </p>
 
-                    <Button className="boot-btn add" 
+                    <Button 
+                    className="boot-btn add" 
                     variant="success" 
                     onClick={ () => this.addActivity() }>
                         Add

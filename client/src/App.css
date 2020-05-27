@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300&family=Oswald:wght@300&display=swap');
+
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'Crimson Pro', serif;
 }

@@ -12,6 +12,7 @@ export default class MyActivities extends Component {
         this.state = {
           activities: [],
           activity: '',
+          emptyData: [],
           done: null
         };
 
@@ -20,10 +21,17 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        let user_id = 1; // static for now (testing)
-        fetch ( `http://localhost:9090/activities/all/${user_id}` )
+        
+        fetch ( `http://localhost:9090/activities/all/${this.props.user_id}` )
           .then( response => response.json() )
-          .then( data => this.setState({ activities: data }))
+          .then( (data) => {
+            // console.log(data)
+            if ( data.length === 0 ) {
+              return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
+            } else {
+              this.setState({ activities: data })
+            }
+          })
       }
 
       deleteActivity = async (id) => {
@@ -49,7 +57,14 @@ export default class MyActivities extends Component {
         let user_id = 1
         await fetch(`http://localhost:9090/activities/all/${user_id}`)
         .then(response => response.json())
-        .then( data => this.setState({ activities: data }))
+        .then( (data) => {
+          // console.log(data)
+          if ( data.length === 0 ) {
+            return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
+          } else {
+            this.setState({ activities: data })
+          }
+        })
       }
 
       showPending = async () => {
@@ -85,8 +100,8 @@ export default class MyActivities extends Component {
         .then( data => {
           if ( data.response === 1 ) {
             let done = data.response;
-            this.setState({ done: data.done})
-            console.log({done})
+            this.setState({ done: data.response })
+            return done
           } else {
             console.error('Error')
           }
@@ -100,7 +115,7 @@ export default class MyActivities extends Component {
       }
 
     render () {
-        const { activities } = this.state;
+        const { activities, emptyData } = this.state;
 
         return (
             <div id="list-container">
@@ -112,16 +127,17 @@ export default class MyActivities extends Component {
                     </select>
                 </div>
 
-                {/* <p><i>You don't have any activities... yet! :) </i></p> */}
+                <p><i>{emptyData}</i></p>
+             
                 <ul>
-                    { activities.map(activity => 
+                    {activities.map(activity => 
                         <li id="activity" key={activity.id}>
                            <p>{activity.activity}</p> 
                            
                            <p className="italic"> <i>{activity.type}</i> </p>
 
                             <button 
-                            value={activity.done} 
+                            value={activity.done}
                             onClick={ () => this.completeActivity(activity.id) }> 
                               <img src={ activity.done === 1 ?  Completed : Pending } alt="..."/>
                             </button>

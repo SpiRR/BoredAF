@@ -23,10 +23,10 @@ router.get("/profile/:id", async (req, res) => {
 router.post("/register", async (req, res) => {
     const { email, nickname, password, repeatPassword } = req.body;
 
-    if (email && password && repeatPassword && password === repeatPassword) {
+    if (email && nickname && password && repeatPassword && password === repeatPassword) {
 
         if (password.length < 8) {
-            res.send({response: 'Password does not meet the requirements'})
+            res.status(404).send({response: 'Password does not meet the requirements'})
 
         } else {
             bcrypt.hash(password, saltRounds, async (err, hashedPassword) => {
@@ -51,7 +51,7 @@ router.post("/register", async (req, res) => {
                             nickname,
                             password: hashedPassword
                         })
-                        // Not inserting (missing something)
+
                         return res.status(200).send({
                             email: creatingUser.email,
                             nickname: creatingUser.nickname
@@ -74,8 +74,49 @@ router.post("/register", async (req, res) => {
 });
 
 // Login
-router.post("/login", (req, res) => {
-    
+router.post("/login", async (req, res) => {
+    const { email, password } = req.body;
+    const session = req.session;
+
+    if ( email && password ) {
+        const doesUserExists = await User.query().select().where({ email: email }).limit(1);
+        const foundUser = doesUserExists[0]
+
+        if ( session.authenticated ) {
+            session.regenerate (err => {
+                if(err){
+                    res.status(500).send({response: 'Error in sessions'})
+                }
+                session.email = foundUser.email;
+                session.authenticated = true;
+                session.user_id = foundUser.id
+            })
+            return res.status(200).send({ email: foundUser.email, id: foundUser.id });
+        }
+
+        if ( !foundUser ) {
+            return res.status(404).send({response: 'Invalid login'})
+        }
+
+        await bcrypt.compare( password, foundUser.password, ( error, isSame ) => {
+            if (error) {
+                return res.status(500).send({response: 'Internal error'});
+            }
+
+            if ( !isSame ) {
+                return res.status(404).send({response: 'Invalid login!'});
+            } else {
+                session.email = foundUser.email;
+                session.authenticated = true;
+                session.user_id = foundUser.id
+                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id })
+            }
+        });
+
+    } else {
+        return res.status(404).send({ response: 'Missing credentials!' })
+    }
+
 });
 
 // Change password

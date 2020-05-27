@@ -36,7 +36,7 @@ export default class EnteredActivity extends Component {
                 title: 'The activity has been added!',
                 showConfirmButton: false,
                 timer: 2000
-              }) ) 
+              }))
         } else {
             console.log('Enter in input')
         }
@@ -54,8 +54,7 @@ export default class EnteredActivity extends Component {
         return (
             <div id="own">
                 <form>
-                    <h5>Add you own acitivity?</h5>
-                    <input 
+                    <textarea 
                         id="mainInput"
                         className="form-control"
                         placeholder="What's the activity?"
@@ -77,7 +76,7 @@ export default class EnteredActivity extends Component {
                        <option value={this.type}>busywork</option>
                    </select>
 
-                    <Button variant="success" onClick={ () => this.addActivity() }>Add to my activities!</Button>
+                    <Button type="reset" variant="success" onClick={ () => this.addActivity() }>Add to my activities!</Button>
                 </form>
             </div>
         );

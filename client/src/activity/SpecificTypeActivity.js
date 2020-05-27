@@ -66,23 +66,12 @@ export default class SpecificTypeActivity extends Component {
 
     render () {
 
-        const { type, activity } = this.state;
+        const { activity } = this.state;
 
         return (
             <div id="specific">
 
-            <Button 
-                onClick={ () => this.setState({open: true})}
-                variant="info"
-                aria-controls="Specific type"
-                aria-expanded={this.state.open}
-            >
-                Specific type
-            </Button>
-            
-            <Collapse in={this.state.open}>
                 <div>
-
                     <div className="type-container">
                         <Button
                         variant="link"
@@ -159,7 +148,6 @@ export default class SpecificTypeActivity extends Component {
                     </div>
 
                 </div>
-            </Collapse >
 
             </div>
         );
