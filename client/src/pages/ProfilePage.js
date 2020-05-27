@@ -13,10 +13,12 @@ export default class Profile extends Component {
       email: ''
     }
   }
-
+  
   // Fetching user-info
   componentDidMount() {
-    fetch ( `http://localhost:9090/users/profile/${this.props.user_id}` )
+    const sessionStore = JSON.parse(sessionStorage.getItem('myData'))
+    console.log(sessionStore)
+    fetch ( `http://localhost:9090/users/profile/${sessionStore.user_id}` )
       .then( response => response.json() )
       .then( data => this.setState({ nickname: data.nickname, email: data.email }))
   }

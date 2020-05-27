@@ -12,11 +12,20 @@ router.get('/', (req, res) => {
 
 // User info
 router.get("/profile/:id", async (req, res) => {
-    let user = await User.query()
-    res.send({
-        nickname: user[0].nickname,
-        email: user[0].email
-    })
+    const session = req.session;
+    const { id } = req.params;
+
+    if ( session.authenticated && id == session.userId ) {
+        let user = await User.query().select().where({ id: session.user_id })
+        res.send({
+            nickname: user[0].nickname,
+            email: user[0].email
+        })
+    } else {
+        res.status(404).send({response: 'Could not find profile'});
+    }
+
+    
 });
 
 // Register
@@ -109,7 +118,7 @@ router.post("/login", async (req, res) => {
                 session.email = foundUser.email;
                 session.authenticated = true;
                 session.user_id = foundUser.id
-                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id })
+                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id, session: session })
             }
         });
 

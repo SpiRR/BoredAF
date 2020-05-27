@@ -13,7 +13,7 @@ export default class MyActivities extends Component {
           activities: [],
           activity: '',
           emptyData: [],
-          done: null
+          done: null,
         };
 
         this.deleteActivity = this.deleteActivity.bind(this);
@@ -21,8 +21,8 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        
-        fetch ( `http://localhost:9090/activities/all/${this.props.user_id}` )
+        let user_id = 1
+        fetch ( `http://localhost:9090/activities/all/${user_id}` )
           .then( response => response.json() )
           .then( (data) => {
             // console.log(data)

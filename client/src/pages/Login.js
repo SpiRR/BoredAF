@@ -13,7 +13,8 @@ export default class Login extends Component {
             nickname: "",
             password: "",
             repeatPassword: "",
-            redirect: null
+            redirect: null,
+            data: {}
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -43,7 +44,10 @@ export default class Login extends Component {
         })
         .then( response => response.json() )
         .then( data => {
-            this.setState({ user: data, redirect: `/profile${data.id}`})
+            this.setState({ user: data, redirect: `/profile`})
+            // const myData = {user: data}
+            sessionStorage.setItem("myData", JSON.stringify(data))
+            
         } )
     }
 
