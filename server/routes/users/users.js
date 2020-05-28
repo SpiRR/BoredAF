@@ -10,26 +10,7 @@ router.get('/', (req, res) => {
     res.send('users');
 })
 
-// User info
-router.get("/profile/:user_id", async (req, res) => {
-    const sess = req.session;
-    const { user_id } = req.params;
 
-    console.log(req.session)
-    console.log(req.session.sessionid)
-    console.log(sess.user_id)
-    console.log(user_id)
-    if ( sess.authenticated && user_id == sess.user_id ) {
-        let user = await User.singleOrDefault({ id: sess.userId });
-
-        res.send({
-            nickname: user.nickname,
-            email: user.email
-        })
-    } else {
-        res.status(404).send({response: 'Could not find profile'});
-    }    
-});
 
 // Register
 router.post("/register", async (req, res) => {
@@ -97,7 +78,7 @@ router.post("/login", async (req, res) => {
         if ( sess.authenticated ) {
             sess.regenerate (err => {
                 if(err){
-                    res.status(500).send({response: 'Error in sesss'})
+                    res.status(500).send({response: 'Error in sess'})
                 }
                 sess.email = foundUser.email;
                 sess.authenticated = true;
@@ -129,6 +110,22 @@ router.post("/login", async (req, res) => {
         return res.status(404).send({ response: 'Missing credentials!' })
     }
 
+});
+
+// User info
+router.get("/profile/:user_id", async (req, res) => {
+    const { user_id } = req.params;
+    const sess = req.session;
+
+    if ( sess.authenticated && user_id == sess.user_id ) {
+        let user = await User.singleOrDefault({ id: sess.user_id });
+        res.status(200).send({
+            email: user.email,
+            nickname: user.nickname
+        })
+    } else {
+        res.status(404).send({response: 'Could not find profile'});
+    }    
 });
 
 // Change password

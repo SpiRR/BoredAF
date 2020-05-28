@@ -4,6 +4,13 @@ const session = require("express-session");
 const rateLimit = require("express-rate-limit");
 const port = 9090;
 const cookie = require("./cookie_config/cookieconfig.js");
+const { Model } = require("objection");
+const knexFile = require("./knexfile.js");
+const Knex = require("knex");
+const KnexSessionStore = require('connect-session-knex')(session);
+// -----------------------------------------------
+const knex = Knex(knexFile.development);
+Model.knex(knex);
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
@@ -13,20 +20,11 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:9090");
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "GET, PUT, PATCH, POST, DELETE, HEAD, OPTIONS");
+    res.header("Access-Control-Allow-Methods", "GET, PATCH, POST, DELETE, HEAD, OPTIONS");
     res.header("Access-Control-Allow-Credentials", true)
     next();
 })
 
-// -----------------------------------------------
-const { Model } = require("objection");
-const knexFile = require("./knexfile.js");
-const Knex = require("knex");
-const KnexSessionStore = require('connect-session-knex')(session);
-
-const knex = Knex(knexFile.development);
-
-Model.knex(knex);
 
 // Rate limiter - to limit requests to api and endpoints! 
 const authLimiter = rateLimit({
@@ -45,8 +43,13 @@ const store = new KnexSessionStore({
 app.use(session({ 
     secret: cookie.cookieSecret,
     store: store,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
+    cookie: {
+        domain: 'localhost',
+        path: '/',
+        maxAge: 24 * 60 * 60 * 1000,
+    },
 }))
 
 // -----------------------------------------------
