@@ -10,8 +10,7 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      nickname: '',
-      email: '',
+      
     }
   }
   
@@ -20,8 +19,8 @@ export default class Profile extends Component {
     this.fetchUserData();
   }
 
-  fetchUserData = () => {
-    fetch ( `http://localhost:9090/users/profile/${this.props.user}` )
+  fetchUserData = (id) => {
+    fetch ( `http://localhost:9090/users/profile/${id}` )
       .then( response => response.json() )
       .then( data => console.log({ nickname: data.nickname, email: data.email }))
   }
@@ -32,9 +31,9 @@ export default class Profile extends Component {
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
-              <p>{this.props.email}</p>
+              {/* <p>{this.user.email}</p> */}
 
-              <h5>Hi {this.props.nickname} !
+              <h5>Hi {/* this.user.nickname */} !
               <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
               <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
               </h5>

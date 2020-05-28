@@ -19,16 +19,24 @@ import ChangePW from './pages/ChangePassword.js';
 import Logout from './component/Logout.js';
 
 export default class App extends Component { 
+  
+  
   constructor(props) {
     super(props);
     this.state = {
-      user_id : ''
+      user: {}
     }
   }
  
-
+  getUserData = (fromLoginComponent) => {
+    // this.setState({ user: fromLoginComponent })
+    console.log(fromLoginComponent)
+  }
   
  render() {
+
+  const { user } = this.props
+
     return (
       <Router>
       <div>
@@ -42,14 +50,27 @@ export default class App extends Component {
 
         <Switch>
           <Route exact path="/" component={Homepage} />
-          <Route path="/login" component={Login} />
+
+          <Route path="/login" >
+            <Login setUserData={this.getUserData.bind(this)}/>
+          </Route>
+
           <Route path="/signup" component={Signup} />
-          <Route path="/profile" component={Profile} />
+
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          
           <Route path="/newactivity" component={NewActivity} />
+
           <Route path="/myactivities" component={MyActivities} />
+
           <Route path="/settings" component={Settings} />
+
           <Route path="/changepw" component={ChangePW}/>
+
           <Route path="/logout" component={Logout}/>
+
         </Switch>
 
         </div>

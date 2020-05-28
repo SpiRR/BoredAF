@@ -98,11 +98,8 @@ router.post("/login", async (req, res) => {
                 return res.status(404).send({response: 'Invalid login!'});
             } else {
                 sess.email = foundUser.email;
-                console.log(sess.email)
                 sess.authenticated = true;
-                console.log(sess.authenticated)
                 sess.user_id = foundUser.id
-                console.log(sess.user_id)
                 return res.status(200).send({ email: foundUser.email, user_id: foundUser.id, sess: sess })
             }
         });
@@ -119,6 +116,7 @@ router.get("/profile/:id", async (req, res) => {
     const sess = req.session;
 
     console.log(sess)
+    console.log(id)
     console.log(req.sid)
 
     if ( sess.authenticated && id == sess.user_id ) {

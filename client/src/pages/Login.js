@@ -9,12 +9,13 @@ export default class Login extends Component {
 
         this.state = {
             user: {},
-            email: "",
-            nickname: "",
-            password: "",
-            repeatPassword: "",
-            redirect: null,
-            data: {}
+            // email: "",
+            // nickname: "",
+            // password: "",
+            // repeatPassword: "",
+            id: '',
+            isAuth: false,
+            redirect: null
         }
 
         this.handleChange = this.handleChange.bind(this)
@@ -43,9 +44,18 @@ export default class Login extends Component {
             }
         })
         .then( response => response.json() )
-        .then( data => {
-                this.setState({ user: data}) //redirect: `/profile`            
-        } )
+        .then( data => this.setState({ 
+            user: data, 
+            id: data.sess.user_id, 
+            isAuth: data.sess.authenticated, 
+            redirect: '/profile'
+            })
+        )
+    }
+
+    setUserData = (e) => {
+        e.preventDefault();
+        this.props.getUserData('X')
     }
 
     render () {
@@ -74,7 +84,7 @@ export default class Login extends Component {
                         onChange={ this.handleChange }
                         />
 
-                   <Button variant="success" type="submit">Login</Button>
+                   <Button variant="success" type="submit" onClick={this.setUserData.bind(this)}>Login</Button>
                    
                 </form>
                 <a href="/signup">Not a member yet?</a>
