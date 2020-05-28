@@ -53,11 +53,6 @@ export default class Login extends Component {
         )
     }
 
-    setUserData = (e) => {
-        e.preventDefault();
-        this.props.getUserData('X')
-    }
-
     render () {
 
         if (this.state.redirect) {

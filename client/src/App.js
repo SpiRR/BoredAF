@@ -27,12 +27,7 @@ export default class App extends Component {
       user: {}
     }
   }
- 
-  getUserData = (fromLoginComponent) => {
-    // this.setState({ user: fromLoginComponent })
-    console.log(fromLoginComponent)
-  }
-  
+
  render() {
 
   const { user } = this.props
@@ -52,7 +47,7 @@ export default class App extends Component {
           <Route exact path="/" component={Homepage} />
 
           <Route path="/login" >
-            <Login setUserData={this.getUserData.bind(this)}/>
+            <Login />
           </Route>
 
           <Route path="/signup" component={Signup} />
