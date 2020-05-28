@@ -1,4 +1,13 @@
 # Exam-Project
 
 # Packages used: 
-- React-dropdown
+* Backend:
+- Bcrypt
+- Express
+- Knex.js
+- Objection.js
+- MySQL
+
+* Frontend
+- React 
+- React-router-dom
