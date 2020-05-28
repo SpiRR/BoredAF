@@ -10,8 +10,6 @@ router.get('/', (req, res) => {
     res.send('users');
 })
 
-
-
 // Register
 router.post("/register", async (req, res) => {
     const { email, nickname, password, repeatPassword } = req.body;
@@ -100,9 +98,12 @@ router.post("/login", async (req, res) => {
                 return res.status(404).send({response: 'Invalid login!'});
             } else {
                 sess.email = foundUser.email;
+                console.log(sess.email)
                 sess.authenticated = true;
+                console.log(sess.authenticated)
                 sess.user_id = foundUser.id
-                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id, sess: sess })
+                console.log(sess.user_id)
+                return res.status(200).send({ email: foundUser.email, user_id: foundUser.id, sess: sess })
             }
         });
 
@@ -113,11 +114,14 @@ router.post("/login", async (req, res) => {
 });
 
 // User info
-router.get("/profile/:user_id", async (req, res) => {
-    const { user_id } = req.params;
+router.get("/profile/:id", async (req, res) => {
+    const { id } = req.params;
     const sess = req.session;
 
-    if ( sess.authenticated && user_id == sess.user_id ) {
+    console.log(sess)
+    console.log(req.sid)
+
+    if ( sess.authenticated && id == sess.user_id ) {
         let user = await User.singleOrDefault({ id: sess.user_id });
         res.status(200).send({
             email: user.email,
@@ -127,6 +131,7 @@ router.get("/profile/:user_id", async (req, res) => {
         res.status(404).send({response: 'Could not find profile'});
     }    
 });
+
 
 // Change password
 router.patch("/changepw/:id", async (req, res) => {

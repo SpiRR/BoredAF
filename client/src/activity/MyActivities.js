@@ -21,9 +21,7 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        const sessionStore = JSON.parse(sessionStorage.getItem('myData'))
-        console.log(sessionStore.user_id)
-        fetch ( `http://localhost:9090/activities/all/${sessionStore.user_id}` )
+        fetch ( `http://localhost:9090/activities/all/${this.props.user}` )
           .then( response => response.json() )
           .then( (data) => {
             // console.log(data)

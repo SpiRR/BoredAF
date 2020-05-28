@@ -8,7 +8,7 @@ export default class Login extends Component {
         super(props);
 
         this.state = {
-            user: [],
+            user: {},
             email: "",
             nickname: "",
             password: "",
@@ -44,8 +44,7 @@ export default class Login extends Component {
         })
         .then( response => response.json() )
         .then( data => {
-                sessionStorage.setItem("myData", JSON.stringify(data))
-                this.setState({ user: data, redirect: `/profile`})            
+                this.setState({ user: data}) //redirect: `/profile`            
         } )
     }
 

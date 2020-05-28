@@ -17,11 +17,13 @@ export default class Profile extends Component {
   
   // Fetching user-info
   componentDidMount() {
-    const sessionStore = JSON.parse(sessionStorage.getItem('myData'))
-    console.log(sessionStore.user_id)
-    fetch ( `http://localhost:9090/users/profile/${sessionStore.user_id}` )
+    this.fetchUserData();
+  }
+
+  fetchUserData = () => {
+    fetch ( `http://localhost:9090/users/profile/${this.props.user}` )
       .then( response => response.json() )
-      .then( data => this.setState({ nickname: data.nickname, email: data.email }))
+      .then( data => console.log({ nickname: data.nickname, email: data.email }))
   }
 
     render () {
