@@ -21,8 +21,9 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        let user_id = 1
-        fetch ( `http://localhost:9090/activities/all/${user_id}` )
+        const sessionStore = JSON.parse(sessionStorage.getItem('myData'))
+        console.log(sessionStore.user_id)
+        fetch ( `http://localhost:9090/activities/all/${sessionStore.user_id}` )
           .then( response => response.json() )
           .then( (data) => {
             // console.log(data)
@@ -33,7 +34,7 @@ export default class MyActivities extends Component {
             }
           })
       }
-
+                          // needs to be activityid?
       deleteActivity = async (id) => {
         // You need to reload page for seeing which items are removed (that you have clicked on)
           await fetch(`http://localhost:9090/activities/deleteactivity/${id}`, {

@@ -22,6 +22,7 @@ app.use(function(req, res, next) {
 const { Model } = require("objection");
 const knexFile = require("./knexfile.js");
 const Knex = require("knex");
+const KnexSessionStore = require('connect-session-knex')(session);
 
 const knex = Knex(knexFile.development);
 
@@ -33,20 +34,26 @@ const authLimiter = rateLimit({
     max: 100 // limit each IP to 100 requests per windowMs
 })
 
+// KNEX SESSION -> store the sessions in DB via KNEX
+const store = new KnexSessionStore({
+    knex: knex,
+    tablename: "sessions", // optional. Defaults to 'sessions'
+    createtable: true
+  });
+
 // Cookie
-app.use(session({ // Not saving the cookies in a store (Knex for example)
+app.use(session({ 
     secret: cookie.cookieSecret,
+    store: store,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
 }))
 
 // -----------------------------------------------
-const homepage = require("./routes/homepage.js");
 const users = require("./routes/users/users.js");
 const activities = require("./routes/activities/activities.js");
 
-app.use("/", homepage);
-app.use("/users", users, authLimiter);
+app.use("/users", users); //authLimiter
 app.use("/activities", activities)
 
 

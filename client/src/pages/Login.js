@@ -44,10 +44,8 @@ export default class Login extends Component {
         })
         .then( response => response.json() )
         .then( data => {
-            this.setState({ user: data, redirect: `/profile`})
-            // const myData = {user: data}
-            sessionStorage.setItem("myData", JSON.stringify(data))
-            
+                sessionStorage.setItem("myData", JSON.stringify(data))
+                this.setState({ user: data, redirect: `/profile`})            
         } )
     }
 

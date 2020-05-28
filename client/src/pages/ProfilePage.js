@@ -3,6 +3,7 @@ import '../style/Profile.css';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
+import { BrowserRouter } from 'react-router-dom';
 
 export default class Profile extends Component {
 
@@ -10,28 +11,28 @@ export default class Profile extends Component {
     super(props);
     this.state = {
       nickname: '',
-      email: ''
+      email: '',
     }
   }
   
   // Fetching user-info
   componentDidMount() {
     const sessionStore = JSON.parse(sessionStorage.getItem('myData'))
-    console.log(sessionStore)
+    console.log(sessionStore.user_id)
     fetch ( `http://localhost:9090/users/profile/${sessionStore.user_id}` )
       .then( response => response.json() )
       .then( data => this.setState({ nickname: data.nickname, email: data.email }))
   }
 
     render () {
-      const { nickname, email } = this.state;
+      const { user } = this.props;
 
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
-              <p>{email}</p>
+              <p>{this.props.email}</p>
 
-              <h5>Hi {nickname} !
+              <h5>Hi {this.props.nickname} !
               <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
               <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
               </h5>

@@ -18,14 +18,16 @@ import Settings from './pages/Settings.js';
 import ChangePW from './pages/ChangePassword.js';
 import Logout from './component/Logout.js';
 
-export default class App extends Component {
+export default class App extends Component { 
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      user_id: ''
+      user_id : ''
     }
   }
+ 
 
+  
  render() {
     return (
       <Router>

@@ -11,21 +11,24 @@ router.get('/', (req, res) => {
 })
 
 // User info
-router.get("/profile/:id", async (req, res) => {
-    const session = req.session;
-    const { id } = req.params;
+router.get("/profile/:user_id", async (req, res) => {
+    const sess = req.session;
+    const { user_id } = req.params;
 
-    if ( session.authenticated && id == session.userId ) {
-        let user = await User.query().select().where({ id: session.user_id })
+    console.log(req.session)
+    console.log(req.session.sessionid)
+    console.log(sess.user_id)
+    console.log(user_id)
+    if ( sess.authenticated && user_id == sess.user_id ) {
+        let user = await User.singleOrDefault({ id: sess.userId });
+
         res.send({
-            nickname: user[0].nickname,
-            email: user[0].email
+            nickname: user.nickname,
+            email: user.email
         })
     } else {
         res.status(404).send({response: 'Could not find profile'});
-    }
-
-    
+    }    
 });
 
 // Register
@@ -85,20 +88,20 @@ router.post("/register", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    const session = req.session;
+    const sess = req.session;
 
     if ( email && password ) {
         const doesUserExists = await User.query().select().where({ email: email }).limit(1);
         const foundUser = doesUserExists[0]
 
-        if ( session.authenticated ) {
-            session.regenerate (err => {
+        if ( sess.authenticated ) {
+            sess.regenerate (err => {
                 if(err){
-                    res.status(500).send({response: 'Error in sessions'})
+                    res.status(500).send({response: 'Error in sesss'})
                 }
-                session.email = foundUser.email;
-                session.authenticated = true;
-                session.user_id = foundUser.id
+                sess.email = foundUser.email;
+                sess.authenticated = true;
+                sess.user_id = foundUser.id
             })
             return res.status(200).send({ email: foundUser.email, id: foundUser.id });
         }
@@ -115,10 +118,10 @@ router.post("/login", async (req, res) => {
             if ( !isSame ) {
                 return res.status(404).send({response: 'Invalid login!'});
             } else {
-                session.email = foundUser.email;
-                session.authenticated = true;
-                session.user_id = foundUser.id
-                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id, session: session })
+                sess.email = foundUser.email;
+                sess.authenticated = true;
+                sess.user_id = foundUser.id
+                return res.status(200).send({ response: `Logged in: ${foundUser.email}`, user_id: foundUser.id, sess: sess })
             }
         });
 
@@ -182,7 +185,7 @@ router.patch("/changepw/:id", async (req, res) => {
 // router.post("/users/logout", function(req, res) {
 //     const sess = req.session;
 //     if (sess) {
-//         // delete session object
+//         // delete sess object
 //         sess.destroy(function(err) {
 //             if(err) {
 //                 return next(err);

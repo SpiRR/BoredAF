@@ -7,22 +7,29 @@ router.get('/', (req, res) => {
     res.send('activities');
 })
 
-// Add own activity
+// Add own activity (sess added, not tested)
 router.post("/add/:id", async (req, res) => {
+    const session = req.session;
     const { activity, type } = req.body;
     const { id } = req.params;
     const done = false;
 
-    const newActivity = await Activity.query().insert({
-        activity, // input 
-        type,
-        done,
-        user_id: id
-    })
-    res.status(200).send({
-        activity: newActivity.activity
-    });
-
+    if ( session.authenticated && id == session.user_id ) {
+        try {
+            const newActivity = await Activity.query().insert({
+                activity, // input 
+                type,
+                done,
+                user_id: id
+            })
+            res.status(200).send({
+                activity: newActivity.activity
+            });
+        } catch (error) {
+            if (err) {console.log("error in adding ectivity"); return}
+            console.log("Success")
+        }
+    }
 });
 
 // Update an activity from pending to complete (done = true)
