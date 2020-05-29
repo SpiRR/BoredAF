@@ -1,75 +1,85 @@
-import React,{ Component } from 'react';
+import React,{ Component } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import './App.css';
-import './style/Navbar.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Signup from './pages/Signup.js';
-import Login from './pages/Login.js';
-import Homepage from './pages/HomePage.js'
-import Profile from './pages/ProfilePage.js';
-import NewActivity from './activity/NewActivity.js';
-import MyActivities from './activity/MyActivities.js';
-import Settings from './pages/Settings.js';
-import ChangePW from './pages/ChangePassword.js';
-import Logout from './component/Logout.js';
+import "./App.css";
+import "./style/Navbar.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Signup from "./pages/Signup.js";
+import Login from "./pages/Login.js";
+import Home from "./pages/Home.js"
+import Profile from "./pages/ProfilePage.js";
+import NewActivity from "./activity/NewActivity.js";
+import MyActivities from "./activity/MyActivities.js";
+import Settings from "./pages/Settings.js";
+import ChangePW from "./pages/ChangePassword.js";
+import Logout from "./component/Logout.js";
 
 export default class App extends Component { 
   
   
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: {}
-    }
-  }
+  
 
  render() {
 
-  const { user } = this.props
-
     return (
       <Router>
+
       <div>
+
         <nav>
-          <Link to="/profile">Profile</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign-up</Link>
-          <Link to="/">Home</Link>
-          <Link to="/logout">Logout</Link>
+          <Link to="/profile" >Profile</Link>
+          <Link to= "/login" >Login</Link>
+          <Link to="/signup" >Signup</Link>
+          <Link to="/" >Home</Link> 
+          <Link to="/logout" >Logout</Link>
         </nav>
 
         <Switch>
-          <Route exact path="/" component={Homepage} />
+          <Route exact path="/">
+            <Home />
+          </Route>
 
           <Route path="/login" >
             <Login />
           </Route>
 
-          <Route path="/signup" component={Signup} />
+          <Route path="/signup">
+            <Signup />
+          </Route>
 
           <Route path="/profile">
             <Profile />
           </Route>
           
-          <Route path="/newactivity" component={NewActivity} />
+          <Route path="/newactivity">
+            <NewActivity />
+          </Route>
 
-          <Route path="/myactivities" component={MyActivities} />
+          <Route path="/myactivities">
+            <MyActivities />
+          </Route>
 
-          <Route path="/settings" component={Settings} />
+          <Route path="/settings">
+            <Settings />
+          </Route>
 
-          <Route path="/changepw" component={ChangePW}/>
+          <Route path="/changepw">
+            <ChangePW />
+          </Route>
 
-          <Route path="/logout" component={Logout}/>
+          <Route path="/logout">
+            <Logout />
+          </Route>
 
         </Switch>
 
         </div>
-      </Router>
+
+    </Router>
     );
   }
 }

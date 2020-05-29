@@ -5,7 +5,7 @@ export default class Homepage extends Component {
     render () {
         return (
             <div id="homepage-container">
-                <h3>Homepage</h3>
+                <h3>Home</h3>
 
                 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 

@@ -100,6 +100,7 @@ router.post("/login", async (req, res) => {
                 sess.email = foundUser.email;
                 sess.authenticated = true;
                 sess.user_id = foundUser.id
+                sess.save()  // reload here? 
                 return res.status(200).send({ email: foundUser.email, user_id: foundUser.id, sess: sess })
             }
         });
@@ -113,11 +114,15 @@ router.post("/login", async (req, res) => {
 // User info
 router.get("/profile/:id", async (req, res) => {
     const { id } = req.params;
-    const sess = req.session;
+    req.session.reload(function(err) {
+        if(err){console.log('Could not load session'); return}
+        var sess;
+        req.session = sess
+    })
 
     console.log(sess)
     console.log(id)
-    console.log(req.sid)
+    console.log(req.session)
 
     if ( sess.authenticated && id == sess.user_id ) {
         let user = await User.singleOrDefault({ id: sess.user_id });

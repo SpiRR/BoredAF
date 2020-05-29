@@ -1,37 +1,30 @@
 import React,{ Component } from 'react';
-import { Redirect } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import '../style/Login.css';
 
 export default class Login extends Component {  
     constructor(props) {
         super(props);
-
         this.state = {
-            user: {},
-            // email: "",
-            // nickname: "",
-            // password: "",
-            // repeatPassword: "",
-            id: '',
-            isAuth: false,
-            redirect: null
+          user: undefined,
+          id: "",
+          isAuth: false,
         }
-
-        this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-    }
-
-  
-    handleChange = (e) => {
+        this.handleChange = this.handleChange.bind(this)
+      }
+    
+      handleChange = (e) => {
         this.setState({ 
             [e.target.name] : e.target.value
         })
     }
-
-    handleSubmit = async (e) => {
+    
+    
+      handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('I want to login!')
+        console.log("I want to login!")
         await fetch("http://localhost:9090/users/login", {
             method: "POST",
             credentials: "include",
@@ -44,34 +37,32 @@ export default class Login extends Component {
             }
         })
         .then( response => response.json() )
-        .then( data => this.setState({ 
-            user: data, 
+        .then( data => {
+          this.setState({ 
+            user: sessionStorage.setItem('user', JSON.stringify(data)), 
             id: data.sess.user_id, 
-            isAuth: data.sess.authenticated, 
-            redirect: '/profile'
-            })
-        )
-    }
-
+            isAuth: data.sess.authenticated,
+            
+          })
+          
+          })
+      }
     render () {
-
-        if (this.state.redirect) {
-            return <Redirect to={ this.state.redirect } />
-          }
 
         return (
             <div id="login-container">
                 <h3>Login</h3>
-                <form onSubmit={ this.handleSubmit }>
-                <input class="form-control"
-                        placeholder="Email"
-                        type="text"
-                        name="email"
-                        value={ this.state.email }
-                        onChange={ this.handleChange }
-                        />
 
-                    <input class="form-control"
+                <form onSubmit={ this.handleSubmit }>
+                    <input className="form-control"
+                            placeholder="Email"
+                            type="text"
+                            name="email"
+                            value={ this.state.email }
+                            onChange={ this.handleChange }
+                            />
+
+                    <input className="form-control"
                         placeholder="Password"
                         type="password"
                         name="password"
@@ -79,7 +70,7 @@ export default class Login extends Component {
                         onChange={ this.handleChange }
                         />
 
-                   <Button variant="success" type="submit" onClick={this.setUserData.bind(this)}>Login</Button>
+                   <Button variant="success" type="submit">Login</Button>
                    
                 </form>
                 <a href="/signup">Not a member yet?</a>

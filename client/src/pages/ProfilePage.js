@@ -10,30 +10,31 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+
     }
   }
   
   // Fetching user-info
   componentDidMount() {
-    this.fetchUserData();
-  }
+    const userData = sessionStorage.getItem("user")
+    const user = JSON.parse(userData)
+    this.setState({ user_id: user.sess.user_id, email: user.email })
+    // set state of id
+      fetch ( `http://localhost:9090/users/profile/${user.sess.user_id}` )
+        .then( response => response.json() )
+        .then( data => console.log({ data: data }))
+    }
 
-  fetchUserData = (id) => {
-    fetch ( `http://localhost:9090/users/profile/${id}` )
-      .then( response => response.json() )
-      .then( data => console.log({ nickname: data.nickname, email: data.email }))
-  }
 
     render () {
-      const { user } = this.props;
+      const { user } = this.state;
 
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
-              {/* <p>{this.user.email}</p> */}
+              <p>{this.state.email}</p>
 
-              <h5>Hi {/* this.user.nickname */} !
+              <h5>Hi {/* this.state.nickname */} !
               <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
               <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
               </h5>
