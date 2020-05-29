@@ -16,7 +16,7 @@ export default class EnteredActivity extends Component {
      // Activity and type is undefined
      addActivity = async () => {
         if (this.state.activity) {
-            let user_id = 1
+            let user_id = 9
             await fetch(`http://localhost:9090/activities/add/${user_id}`, {
                 method: "POST",
                 credentials: "include",

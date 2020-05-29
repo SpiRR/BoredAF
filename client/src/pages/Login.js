@@ -6,47 +6,42 @@ import '../style/Login.css';
 export default class Login extends Component {  
     constructor(props) {
         super(props);
+
         this.state = {
-          user: undefined,
-          id: "",
-          isAuth: false,
+            email: '',
+            password: ''
         }
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        
+        // this.handleSubmit = this.handleSubmit.bind(this)
+        // this.handleChange = this.handleChange.bind(this)
       }
     
-      handleChange = (e) => {
-        this.setState({ 
-            [e.target.name] : e.target.value
-        })
-    }
+    //   handleChange = (e) => {
+    //     this.setState({ 
+    //         [e.target.name] : e.target.value
+    //     })
+    // }
     
     
-      handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log("I want to login!")
-        await fetch("http://localhost:9090/users/login", {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then( response => response.json() )
-        .then( data => {
-          this.setState({ 
-            user: sessionStorage.setItem('user', JSON.stringify(data)), 
-            id: data.sess.user_id, 
-            isAuth: data.sess.authenticated,
-            
-          })
-          
-          })
-      }
+    //   handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     console.log("I want to login!")
+    //     await fetch("http://localhost:9090/users/login", {
+    //         method: "POST",
+    //         credentials: "include",
+    //         body: JSON.stringify({
+    //             email: this.state.email,
+    //             password: this.state.password,
+    //         }),
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         }
+    //     })
+    //     .then( response => response.json() )
+    //     .then( data => {
+    //         this.props.setUserId(data.user)
+    //       })
+    //   }
     render () {
 
         return (

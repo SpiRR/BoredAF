@@ -7,14 +7,16 @@ const cookie = require("./cookie_config/cookieconfig.js");
 const { Model } = require("objection");
 const knexFile = require("./knexfile.js");
 const Knex = require("knex");
+const cookieParser = require('cookie-parser')
 const KnexSessionStore = require('connect-session-knex')(session);
 // -----------------------------------------------
 const knex = Knex(knexFile.development);
 Model.knex(knex);
 
+app.use(cookieParser())
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
+app.use(express.Router());
 // CORS
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:9090");
@@ -44,7 +46,7 @@ app.use(session({
     secret: cookie.cookieSecret,
     store: store,
     resave: true,
-    saveUninitialized: false,
+    saveUninitialized: true,
     cookie: {
         domain: 'localhost',
         path: '/',
@@ -60,6 +62,9 @@ const activities = require("./routes/activities/activities.js");
 app.use("/users", users); //authLimiter
 app.use("/activities", activities)
 
+app.get("/sess", (req, res) => {
+    res.send(req.session);
+})
 
 app.listen(port, err => {
     if (err) {

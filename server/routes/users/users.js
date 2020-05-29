@@ -73,17 +73,17 @@ router.post("/login", async (req, res) => {
         const doesUserExists = await User.query().select().where({ email: email }).limit(1);
         const foundUser = doesUserExists[0]
 
-        if ( sess.authenticated ) {
-            sess.regenerate (err => {
-                if(err){
-                    res.status(500).send({response: 'Error in sess'})
-                }
-                sess.email = foundUser.email;
-                sess.authenticated = true;
-                sess.user_id = foundUser.id
-            })
-            return res.status(200).send({ email: foundUser.email, id: foundUser.id });
-        }
+        // if ( sess.authenticated ) {
+        //     sess.regenerate (err => {
+        //         if(err){
+        //             res.status(500).send({response: 'Error in sess'})
+        //         }
+        //         sess.email = foundUser.email;
+        //         sess.authenticated = true;
+        //         sess.user_id = foundUser.id
+        //     })
+        //     return res.status(200).send({ email: foundUser.email, id: foundUser.id });
+        // }
 
         if ( !foundUser ) {
             return res.status(404).send({response: 'Invalid login'})
@@ -97,11 +97,20 @@ router.post("/login", async (req, res) => {
             if ( !isSame ) {
                 return res.status(404).send({response: 'Invalid login!'});
             } else {
-                sess.email = foundUser.email;
-                sess.authenticated = true;
-                sess.user_id = foundUser.id
-                sess.save()  // reload here? 
-                return res.status(200).send({ email: foundUser.email, user_id: foundUser.id, sess: sess })
+
+                const userObj = {
+                    email: foundUser.email,
+                    auth : true,
+                    user_id : foundUser.id
+                }
+
+                req.session.user = userObj;
+                req.session.auth = true
+
+                console.log(userObj)
+                console.log('Cookies: ', req.cookies)
+                req.session.save()
+                return res.status(200).send({ user: userObj })
             }
         });
 
@@ -111,28 +120,31 @@ router.post("/login", async (req, res) => {
 
 });
 
+
+
 // User info
 router.get("/profile/:id", async (req, res) => {
     const { id } = req.params;
-    req.session.reload(function(err) {
-        if(err){console.log('Could not load session'); return}
-        var sess;
-        req.session = sess
-    })
+    // const sess = req.session;
+    // req.session.reload(function(err) {
+    //     if(err){console.log('Could not load session'); return}
+    //     var sess;
+    //     req.session = sess
+    // })
+    // console.log(sess)           //id: "qyfUor6r9NNOj5FjYEe1i9EzdPhmaIYY"
+    // console.log(req.session.user)
+    // console.log(sess.auth)
+    // console.log(sess.user.user_id)
 
-    console.log(sess)
-    console.log(id)
-    console.log(req.session)
-
-    if ( sess.authenticated && id == sess.user_id ) {
-        let user = await User.singleOrDefault({ id: sess.user_id });
+    // if ( sess.auth && id == sess.user.user_id ) {
+        let user = await User.singleOrDefault({ id: id });
         res.status(200).send({
             email: user.email,
             nickname: user.nickname
         })
-    } else {
-        res.status(404).send({response: 'Could not find profile'});
-    }    
+    // } else {
+    //     res.status(404).send({response: 'Could not find profile'});
+    // }    
 });
 
 

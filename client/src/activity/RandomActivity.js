@@ -29,7 +29,7 @@ export default class RandomActivity extends Component {
     // Need to check if its empty
     addActivity = async () => {
         if (this.state.activity ) {
-            let user_id = 1
+            let user_id = 9
             await fetch(`http://localhost:9090/activities/add/${user_id}`, {
                 method: "POST",
                 credentials: "include",
@@ -42,7 +42,7 @@ export default class RandomActivity extends Component {
                 },
             })
             .then( response => console.log(response.json()) )
-            .then( data => console.log( data ) )
+            .then( data => this.setState( data ) )
             .then( Swal.fire({
                 position: 'center',
                 icon: 'success',

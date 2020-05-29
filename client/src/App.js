@@ -20,10 +20,39 @@ import Logout from "./component/Logout.js";
 
 export default class App extends Component { 
   
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     user: null,
+  //   }
+  //   // this.setUserId = this.setUserId.bind(this)
+  // }
   
+  // setUserId = (user) =>  {
+  //  sessionStorage.setItem('user', JSON.stringify(user))
+  //  this.setState({
+  //      user: user
+  //    })
+  //  }
+
+  //  componentDidMount () {
+  //  const userExists = sessionStorage.getItem('user')
+  //  if (!userExists) {
+  //     //redirect to login
+  //     console.log('User does not exists in sessionS')
+  //   } else {
+  //     console.log('User exists in sessionS')
+  //     this.setState({
+  //       user: JSON.parse(userExists)
+  //     })
+  //     // redirect to profile
+  //  }
+  // }
   
 
  render() {
+
+    // const { user } = this.state;
 
     return (
       <Router>
@@ -44,7 +73,7 @@ export default class App extends Component {
           </Route>
 
           <Route path="/login" >
-            <Login />
+            <Login />  {/* setUserId={this.setUserId} */}
           </Route>
 
           <Route path="/signup">
@@ -52,7 +81,9 @@ export default class App extends Component {
           </Route>
 
           <Route path="/profile">
-            <Profile />
+            <Profile 
+              // user={this.state.user}
+            />
           </Route>
           
           <Route path="/newactivity">

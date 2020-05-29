@@ -13,7 +13,7 @@ export default class MyActivities extends Component {
           activities: [],
           activity: '',
           emptyData: [],
-          done: null,
+          done: false,
         };
 
         this.deleteActivity = this.deleteActivity.bind(this);
@@ -21,7 +21,8 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        fetch ( `http://localhost:9090/activities/all/${this.props.user}` )
+        const user_id = 9
+        fetch ( `http://localhost:9090/activities/all/${user_id}` )
           .then( response => response.json() )
           .then( (data) => {
             // console.log(data)
@@ -53,7 +54,7 @@ export default class MyActivities extends Component {
 
       showAll = async () => {
         console.log('all')
-        let user_id = 1
+        const user_id = 9
         await fetch(`http://localhost:9090/activities/all/${user_id}`)
         .then(response => response.json())
         .then( (data) => {
@@ -68,7 +69,7 @@ export default class MyActivities extends Component {
 
       showPending = async () => {
         console.log('pending')
-        let user_id = 1
+        const user_id = 9
         await fetch(`http://localhost:9090/activities/pending/${user_id}`)
         .then(response => response.json())
         .then( data => this.setState({ activities: data }))
@@ -76,16 +77,15 @@ export default class MyActivities extends Component {
   
       showDone = async () => {
         console.log('completed')
-        let user_id = 1
+        const user_id = 9
         await fetch(`http://localhost:9090/activities/done/${user_id}`)
         .then(response => response.json())
         .then( data => this.setState({ activities: data }))
       }
 
       //ticks all
-      completeActivity = async (activityid) => {
-        console.log(activityid)
-        await fetch(`http://localhost:9090/activities/completed/${activityid}`, {
+      completeActivity = async (activity) => {
+        await fetch(`http://localhost:9090/activities/completed/${activity.id}`, {
           method: "PATCH",
           credentials: "include",
           body: JSON.stringify({
@@ -98,9 +98,12 @@ export default class MyActivities extends Component {
         .then( response => response.json() )
         .then( data => {
           if ( data.response === 1 ) {
-            let done = data.response;
-            this.setState({ done: data.response })
-            return done
+            let tmpActivities = this.state.activities;
+            // const found = tmpActivities.find(element => element.id == activity.id);
+            let index = tmpActivities.indexOf(activity);
+            activity.done = 1;
+            activity[index] = activity;
+            this.setState({activities : tmpActivities })
           } else {
             console.error('Error')
           }
@@ -137,7 +140,7 @@ export default class MyActivities extends Component {
 
                             <button 
                             value={activity.done}
-                            onClick={ () => this.completeActivity(activity.id) }> 
+                            onClick={ () => this.completeActivity(activity) }> 
                               <img src={ activity.done === 1 ?  Completed : Pending } alt="..."/>
                             </button>
 
