@@ -3,8 +3,7 @@ import RandomActivity from './RandomActivity.js';
 import EnteredActivity from './EnteredActivity.js';
 import SpecificTypeActivity from './SpecificTypeActivity.js';
 import Collapsible from 'react-collapsible';
-import ArrowDown from '../images/down-arrow.svg'
-import '../style/NewActivities.css'
+import '../style/NewActivities.css';
 
 export default class NewActivity extends Component {
     constructor(props) {

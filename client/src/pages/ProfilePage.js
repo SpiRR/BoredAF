@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import '../style/Profile.css';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
 import API from '../api/api.js';
+import '../style/Profile.css';
 
 export default class Profile extends Component {
 

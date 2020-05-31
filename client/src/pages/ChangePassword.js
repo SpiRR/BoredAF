@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import API from '../api/api.js';
-import Swal from 'sweetalert2';
 import '../style/Changepw.css';
 
 export default class ChangePw extends Component {

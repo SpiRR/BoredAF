@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2';
-import '../style/NewActivities.css';
 import API from '../api/api.js';
+import '../style/NewActivities.css';
 
 export default class EnteredActivity extends Component {
     constructor(props) {
