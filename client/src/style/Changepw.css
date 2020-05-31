@@ -5,10 +5,12 @@
     margin: auto;
     margin-top: 50px;
 }
+
 .form-control {
     margin: 20px 0;
     width: 20vw;
 }
+
 .btn-success {
     width: 20vw;
     margin-bottom: 10px;

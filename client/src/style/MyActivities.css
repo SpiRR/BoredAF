@@ -1,4 +1,4 @@
-#list-container li{
+#list-container li {
     list-style: none;
     padding: 0;
     display: grid;
@@ -13,7 +13,8 @@
     font-weight: 500;
 }
 
-#list-container p, #list-container b {
+#list-container p,
+#list-container b {
     text-align: left;
     display: inline-block;
     margin: auto;
