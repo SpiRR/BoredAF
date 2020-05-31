@@ -10,7 +10,7 @@ import "./style/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
-import Home from "./pages/Home.js"
+import Home from "./pages/Home.js";
 import Profile from "./pages/ProfilePage.js";
 import NewActivity from "./activity/NewActivity.js";
 import MyActivities from "./activity/MyActivities.js";
@@ -20,96 +20,62 @@ import Logout from "./component/Logout.js";
 
 export default class App extends Component { 
   
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     user: null,
-  //   }
-  //   // this.setUserId = this.setUserId.bind(this)
-  // }
-  
-  // setUserId = (user) =>  {
-  //  sessionStorage.setItem('user', JSON.stringify(user))
-  //  this.setState({
-  //      user: user
-  //    })
-  //  }
-
-  //  componentDidMount () {
-  //  const userExists = sessionStorage.getItem('user')
-  //  if (!userExists) {
-  //     //redirect to login
-  //     console.log('User does not exists in sessionS')
-  //   } else {
-  //     console.log('User exists in sessionS')
-  //     this.setState({
-  //       user: JSON.parse(userExists)
-  //     })
-  //     // redirect to profile
-  //  }
-  // }
-  
-
  render() {
 
-    // const { user } = this.state;
-
     return (
+
       <Router>
+        <div>
+          <nav>
+            <Link to="/profile" >Profile</Link>
+            <Link to= "/login" >Login</Link>
+            <Link to="/signup" >Signup</Link>
+            <Link to="/" >Home</Link> 
+            <Link to="/logout" >Logout</Link>
+          </nav>
 
-      <div>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
 
-        <nav>
-          <Link to="/profile" >Profile</Link>
-          <Link to= "/login" >Login</Link>
-          <Link to="/signup" >Signup</Link>
-          <Link to="/" >Home</Link> 
-          <Link to="/logout" >Logout</Link>
-        </nav>
+            <Route path="/login" >
+              <Login />  {/* setUserId={this.setUserId} */}
+            </Route>
 
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
+            <Route path="/signup">
+              <Signup />
+            </Route>
 
-          <Route path="/login" >
-            <Login />  {/* setUserId={this.setUserId} */}
-          </Route>
+            <Route path="/profile">
+              <Profile 
+                // user={this.state.user}
+              />
+            </Route>
+            
+            <Route path="/newactivity">
+              <NewActivity />
+            </Route>
 
-          <Route path="/signup">
-            <Signup />
-          </Route>
+            <Route path="/myactivities">
+              <MyActivities />
+            </Route>
 
-          <Route path="/profile">
-            <Profile 
-              // user={this.state.user}
-            />
-          </Route>
-          
-          <Route path="/newactivity">
-            <NewActivity />
-          </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
 
-          <Route path="/myactivities">
-            <MyActivities />
-          </Route>
+            <Route path="/changepw">
+              <ChangePW />
+            </Route>
 
-          <Route path="/settings">
-            <Settings />
-          </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
 
-          <Route path="/changepw">
-            <ChangePW />
-          </Route>
-
-          <Route path="/logout">
-            <Logout />
-          </Route>
-
-        </Switch>
+          </Switch>
 
         </div>
-
     </Router>
     );
   }

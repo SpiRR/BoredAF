@@ -6,15 +6,7 @@ import Collapsible from 'react-collapsible';
 import '../style/NewActivities.css';
 
 export default class NewActivity extends Component {
-    constructor(props) {
-        super(props);
         
-        this.state = {
-            activity: '',
-            type: ''
-        }
-    }
-    
     render () {
         
         return (
@@ -27,15 +19,15 @@ export default class NewActivity extends Component {
                 
                 <Collapsible trigger="Get a random activity">
                     <RandomActivity 
-                        activity={this.props.activity}
-                        type={this.props.type}
+                        activity={ this.props.activity }
+                        type={ this.props.type }
                     />
                 </Collapsible>
 
                 <Collapsible trigger="Get a random of a specific type">
                     <SpecificTypeActivity 
-                        activity={this.props.activity}
-                        type={this.props.type}
+                        activity={ this.props.activity }
+                        type={ this.props.type }
                     />
                 </Collapsible>
 

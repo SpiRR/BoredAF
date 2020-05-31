@@ -6,31 +6,31 @@ import API from '../api/api.js';
 import '../style/NewActivities.css';
 
 export default class RandomActivity extends Component {
-    constructor(props) {
-        super(props)
+
+    constructor( props ) {
+        super( props )
 
         this.state = {
             activity: '',
-            type: ''
         }
-        this.getRandom = this.getRandom.bind(this)
+
+        this.getRandom = this.getRandom.bind( this )
     }
 
     getRandom = async () => {
-        await fetch(API.boredAPI.randomActivity)
-        .then( response =>  response.json())
+        await fetch( API.boredAPI.randomActivity )
+        .then( response =>  response.json() )
         .then( data  => 
                 this.setState({
                     activity: data.activity,
                     type: data.type
-                })
-            ) 
+                })); 
     }
 
     // Need to check if its empty
     addActivity = async () => {
-        if (this.state.activity ) {
-            await fetch(API.activities.add + API.userId, {
+        if ( this.state.activity ) {
+            await fetch( API.activities.add + API.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({
@@ -56,16 +56,16 @@ export default class RandomActivity extends Component {
     }
 
     handleActivity = (e) => {
-        this.setState({ activity: e.target.value })
+        this.setState({ activity: e.target.value });
     }
     
     handleType = (e) => {
-        this.setState({ type: e.target.value })
+        this.setState({ type: e.target.value });
     }
 
     render () {
 
-        const { activity, type } = this.state;
+        const { activity } = this.state;
 
         return (
             <div id="random">
@@ -74,23 +74,22 @@ export default class RandomActivity extends Component {
 
                 <form>
                     <input 
-                    disabled 
-                    onChange={this.handleActivity.bind(this)} 
-                    value={this.state.activity} 
-                    placeholder={activity} 
+                        disabled 
+                        onChange={ this.handleActivity.bind( this ) } 
+                        value={ this.state.activity } 
+                        placeholder={ activity } 
                     />
 
                     <p 
-                    onChange={this.handleType.bind(this)} 
-                    value={this.state.type} 
-                    >
-                        {this.state.type} 
+                        onChange={ this.handleType.bind( this ) } 
+                        value={ this.state.type }>
+                        { this.state.type } 
                     </p>
 
                     <Button 
-                    className="boot-btn add" 
-                    variant="success" 
-                    onClick={ () => this.addActivity() }>
+                        className="boot-btn add" 
+                        variant="success" 
+                        onClick={ () => this.addActivity() }>
                         Add
                     </Button>
                 </form>

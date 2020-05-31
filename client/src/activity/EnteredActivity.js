@@ -5,8 +5,9 @@ import API from '../api/api.js';
 import '../style/NewActivities.css';
 
 export default class EnteredActivity extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor( props ) {
+        super( props );
 
         this.state = {
             activity: '',
@@ -14,10 +15,9 @@ export default class EnteredActivity extends Component {
         }
     }
 
-     // Activity and type is undefined
-     addActivity = async () => {
-        if (this.state.activity) {
-            await fetch(API.activities.add + API.userId, {
+    addActivity = async () => {
+        if ( this.state.activity ) {
+            await fetch( API.activities.add + API.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({
@@ -36,24 +36,26 @@ export default class EnteredActivity extends Component {
                 title: 'The activity has been added!',
                 showConfirmButton: false,
                 timer: 2000
-              }))
+              }));
         } else {
-            console.log('Enter in input')
+            console.log('Enter in input');
         }
     }
 
     handleActivity = (e) => {
-        this.setState({ activity: e.target.value })
+        this.setState({ activity: e.target.value });
     }
     
     handleType = (e) => {
-        this.setState({ type: e.target.value })
+        this.setState({ type: e.target.value });
     }
 
     render () {
         return (
             <div id="own">
+
                 <form>
+
                     <textarea 
                         id="mainInput"
                         className="form-control"
@@ -61,7 +63,7 @@ export default class EnteredActivity extends Component {
                         type="text"
                         onChange={this.handleActivity.bind(this)}
                         value={this.activity}
-                        />
+                    />
 
                    <select required onChange={this.handleType.bind(this)}>
                        <option>Types: </option>
@@ -77,6 +79,7 @@ export default class EnteredActivity extends Component {
                    </select>
 
                     <Button type="reset" variant="success" onClick={ () => this.addActivity() }>Add to my activities!</Button>
+                
                 </form>
             </div>
         );

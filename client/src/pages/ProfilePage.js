@@ -7,9 +7,9 @@ import '../style/Profile.css';
 
 export default class Profile extends Component {
 
-
   constructor(props) {
     super(props)
+
     this.state = {
       email: '',
       nickname: ''
@@ -22,7 +22,10 @@ export default class Profile extends Component {
           credentials: "include",
         })
           .then( response => response.json() )
-          .then( data => this.setState({ email: data.email, nickname: data.nickname }))    
+          .then( data => this.setState({ 
+            email: data.email, 
+            nickname: data.nickname 
+          }));    
     }
 
 
@@ -31,11 +34,14 @@ export default class Profile extends Component {
         return (
             <div id="profile-container">
               <h3>Profile page</h3>
+
               <p>{this.state.email}</p>
 
               <h5>Hi {this.state.nickname} !
+
               <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
               <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
+              
               </h5>
 
 

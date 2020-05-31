@@ -4,28 +4,29 @@ import API from '../api/api.js';
 import '../style/Changepw.css';
 
 export default class ChangePw extends Component {
-    constructor(props) {
-        super(props);
+
+    constructor( props ) {
+        super( props );
 
         this.state = {
             newPassword: '',
             repeatNewPassword: ''
         }
-        
-        this.handleSubmit = this.handleSubmit.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+
+        this.handleSubmit = this.handleSubmit.bind( this )
+        this.handleChange = this.handleChange.bind( this )
       }
 
-      handleChange = (e) => {
+    handleChange = e => {
         this.setState({ 
-            [e.target.name] : e.target.value
+            [ e.target.name ] : e.target.value
         })
     }
 
-    handleSubmit = async (e) => {
+    handleSubmit = async e => {
         e.preventDefault();
 
-        await fetch(API.users.changePW + API.userId , {
+        await fetch( API.users.changePW + API.userId , {
             method: "PATCH",
             credentials: "include",
             body: JSON.stringify({
@@ -37,14 +38,15 @@ export default class ChangePw extends Component {
             }
         })
         .then( response => response.json() )
-        .then( data => console.log(data))
-      }
+        .then( data => console.log( data ))
+    }
 
     render () {
 
-
         return (
+
             <div id="changepw-container">
+                
                 <h3>Change password</h3>
 
                 <form onSubmit={ this.handleSubmit }>
@@ -53,7 +55,7 @@ export default class ChangePw extends Component {
                         placeholder="New Password"
                         type="password"
                         name="newPassword"
-                        value={this.state.newPassword}
+                        value={ this.state.newPassword }
                         onChange={ this.handleChange }
                     />
 
@@ -61,13 +63,13 @@ export default class ChangePw extends Component {
                         placeholder="Repeat new password"
                         type="password"
                         name="repeatNewPassword"
-                        value={this.state.repeatNewPassword}
+                        value={ this.state.repeatNewPassword }
                         onChange={ this.handleChange }
                     />
 
                     <Button type="submit">Change password</Button>
-                </form>
 
+                </form>
             </div>
             
         );

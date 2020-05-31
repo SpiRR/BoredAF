@@ -8,6 +8,10 @@
     text-align: center;
 }
 
+#activity-container p {
+    text-align: center;
+}
+
 #activities-container h5 {
     margin-top: 20px;
 }

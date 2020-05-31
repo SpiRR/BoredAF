@@ -7,8 +7,8 @@ import '../style/MyActivities.css';
 
 export default class MyActivities extends Component {
     
-    constructor(props) {
-        super(props);
+    constructor( props ) {
+        super( props );
         
         this.state = {
           activities: [],
@@ -17,14 +17,14 @@ export default class MyActivities extends Component {
           done: false,
         };
 
-        this.deleteActivity = this.deleteActivity.bind(this);
-        this.completeActivity = this.completeActivity.bind(this);
+        this.deleteActivity = this.deleteActivity.bind( this );
+        this.completeActivity = this.completeActivity.bind( this );
       }
 
       componentDidMount() {
         fetch ( API.activities.all + API.userId )
           .then( response => response.json() )
-          .then( (data) => {
+          .then( data  => {
             if ( data.length === 0 ) {
               return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
             } else {
@@ -34,13 +34,13 @@ export default class MyActivities extends Component {
       }
                           // needs to be activityid?
       deleteActivity = async (id) => {
-          await fetch(API.activities.deleteativity + id , {
+          await fetch( API.activities.deleteativity + id , {
               method: "DELETE",
               credentials: "include",
           })
           .then( response => response.json() )
-          .then( (data) => {
-            let activities = this.state.activities.filter((activity) => {
+          .then( data => {
+            let activities = this.state.activities.filter(( activity ) => {
               return id !== activity.id;
             });
             this.setState( state => {
@@ -53,27 +53,27 @@ export default class MyActivities extends Component {
       showAll = async () => {
         console.log('all')
         await fetch( API.activities.all + API.userId )
-        .then(response => response.json())
+        .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }
 
       showPending = async () => {
         console.log('pending')
-        await fetch(API.activities.pending + API.userId)
-        .then(response => response.json())
+        await fetch( API.activities.pending + API.userId)
+        .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }
   
       showDone = async () => {
         console.log('completed')
-        await fetch(API.activities.done + API.userId)
-        .then(response => response.json())
+        await fetch( API.activities.done + API.userId)
+        .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }
 
       //ticks all
       completeActivity = async (activity) => {
-        await fetch(API.activities.completed + activity.id, {
+        await fetch( API.activities.completed + activity.id, {
           method: "PATCH",
           credentials: "include",
           body: JSON.stringify({
@@ -90,7 +90,7 @@ export default class MyActivities extends Component {
             let index = tmpActivities.indexOf(activity);
             activity.done = 1;
             activity[index] = activity;
-            this.setState({activities : tmpActivities })
+            this.setState({ activities : tmpActivities })
           } else {
             console.error('Error')
           }
@@ -106,6 +106,7 @@ export default class MyActivities extends Component {
 
         return (
             <div id="list-container">
+
                 <div id="sort">
                     <select name="done" id="dropdown" >
                       <option value="all" onClick={ () => this.showAll() } onChange={ this.handleChange.bind(this) }>All</option>
@@ -117,26 +118,26 @@ export default class MyActivities extends Component {
                 <p><i>{emptyData}</i></p>
              
                 <ul>
-                    {activities.map(activity => 
-                        <li id="activity" key={activity.id}>
-                           <p>{activity.activity}</p> 
+                    { activities.map( activity => 
+                        <li id="activity" key={ activity.id }>
+                           <p>{ activity.activity }</p> 
                            
-                           <p className="italic"> <i>{activity.type}</i> </p>
+                           <p className="italic"> <i>{ activity.type }</i> </p>
 
                             <button 
-                            value={activity.done}
-                            onClick={ () => this.completeActivity(activity) }> 
+                              value={activity.done}
+                              onClick={ () => this.completeActivity(activity) }> 
                               <img src={ activity.done === 1 ?  Completed : Pending } alt="..."/>
                             </button>
 
                             <button 
-                            id="delete" 
-                            key={activity.id} 
-                            onClick={ () => this.deleteActivity(activity.id) }>
-                              <img type ="button"src={Delete} alt="delete activity" />
+                              id="delete" 
+                              key={activity.id} 
+                              onClick={ () => this.deleteActivity(activity.id) }>
+                              <img type ="button"src={ Delete } alt="delete activity" />
                             </button>
+
                         </li>
-      
                     )}
                 </ul>
             </div>
