@@ -3,6 +3,7 @@ import '../style/Profile.css';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
+import API from '../api/api.js';
 
 export default class Profile extends Component {
 
@@ -17,22 +18,15 @@ export default class Profile extends Component {
 
   // Fetching user-info
   componentDidMount () {   
-      // if (this.props.user)  {
-        // console.log(this.props.user)
-        // const user = this.props.user;
-        const user_id = 9
-        fetch ( `http://localhost:9090/users/profile/${user_id}`, {
+        fetch ( API.users.profile + API.userId, {
           credentials: "include",
         })
           .then( response => response.json() )
           .then( data => this.setState({ email: data.email, nickname: data.nickname }))    
-      // }
-    
     }
 
 
     render () {
-      // const { user } = this.state;
 
         return (
             <div id="profile-container">

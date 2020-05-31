@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2';
 import '../style/NewActivities.css';
+import API from '../api/api.js';
 
 export default class EnteredActivity extends Component {
     constructor(props) {
@@ -16,8 +17,7 @@ export default class EnteredActivity extends Component {
      // Activity and type is undefined
      addActivity = async () => {
         if (this.state.activity) {
-            let user_id = 9
-            await fetch(`http://localhost:9090/activities/add/${user_id}`, {
+            await fetch(API.activities.add + API.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({

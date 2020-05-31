@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
-import Collapse from 'react-bootstrap/Collapse';
 import Swal from 'sweetalert2';
+import API from '../api/api.js';
 import '../style/NewActivities.css';
 
 export default class SpecificTypeActivity extends Component {
@@ -18,7 +18,7 @@ export default class SpecificTypeActivity extends Component {
 
     getSpecific = async (type) => {
         // console.log(this.type)
-        await fetch(`http://www.boredapi.com/api/activity?type=${type}`)
+        await fetch( API.boredAPI.type + type)
         .then( response =>  response.json())
         .then( data  => 
             this.setState({
@@ -30,8 +30,7 @@ export default class SpecificTypeActivity extends Component {
 
     addActivity = async () => {
         if (this.state.activity ) {
-            let user_id = 9
-            await fetch(`http://localhost:9090/activities/add/${user_id}`, {
+            await fetch(API.activities.add + API.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({

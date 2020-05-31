@@ -2,6 +2,7 @@ import React,{ Component } from "react";
 import { Redirect } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Swal from 'sweetalert2';
+import API from '../api/api.js';
 import "../style/Signup.css";
 
 export default class Signup extends Component {
@@ -30,7 +31,7 @@ export default class Signup extends Component {
     handleSubmit = async (e) => {
         e.preventDefault();
         console.log('form submitted')
-        await fetch("http://localhost:9090/users/register", {
+        await fetch(API.users.register, {
             method: "POST",
             credentials: "include",
             body: JSON.stringify({
@@ -69,7 +70,7 @@ export default class Signup extends Component {
                 <h3>Signup</h3>
 
                 <form onSubmit={ this.handleSubmit }>
-                    <input class="form-control"
+                    <input className="form-control"
                         placeholder="E-mail"
                         type="email"
                         name="email"
@@ -77,7 +78,7 @@ export default class Signup extends Component {
                         onChange={ this.handleChange }
                         />
                         
-                    <input class="form-control"
+                    <input className="form-control"
                         placeholder="Nickname"
                         type="text"
                         name="nickname"
@@ -85,7 +86,7 @@ export default class Signup extends Component {
                         onChange={ this.handleChange }
                         />
 
-                    <input class="form-control"
+                    <input className="form-control"
                         placeholder="Password"
                         type="password"
                         name="password"
@@ -93,7 +94,7 @@ export default class Signup extends Component {
                         onChange={ this.handleChange }
                         />
 
-                    <input class="form-control"
+                    <input className="form-control"
                         placeholder="Repeat password"
                         type="password"
                         name="repeatPassword"

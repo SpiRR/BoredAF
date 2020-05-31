@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Random from '../images/random.svg';
 import Swal from 'sweetalert2';
+import API from '../api/api.js';
 import '../style/NewActivities.css';
 
 export default class RandomActivity extends Component {
@@ -16,7 +17,7 @@ export default class RandomActivity extends Component {
     }
 
     getRandom = async () => {
-        await fetch("http://www.boredapi.com/api/activity/")
+        await fetch(API.boredAPI.randomActivity)
         .then( response =>  response.json())
         .then( data  => 
                 this.setState({
@@ -29,8 +30,7 @@ export default class RandomActivity extends Component {
     // Need to check if its empty
     addActivity = async () => {
         if (this.state.activity ) {
-            let user_id = 9
-            await fetch(`http://localhost:9090/activities/add/${user_id}`, {
+            await fetch(API.activities.add + API.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({

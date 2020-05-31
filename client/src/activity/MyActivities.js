@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Delete from '../images/delete.svg';
 import Completed from '../images/completed.svg';
 import Pending from '../images/pending.svg';
+import API from '../api/api.js';
 import '../style/MyActivities.css';
 
 export default class MyActivities extends Component {
@@ -21,11 +22,9 @@ export default class MyActivities extends Component {
       }
 
       componentDidMount() {
-        const user_id = 9
-        fetch ( `http://localhost:9090/activities/all/${user_id}` )
+        fetch ( API.activities.all + API.userId )
           .then( response => response.json() )
           .then( (data) => {
-            // console.log(data)
             if ( data.length === 0 ) {
               return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
             } else {
@@ -35,8 +34,7 @@ export default class MyActivities extends Component {
       }
                           // needs to be activityid?
       deleteActivity = async (id) => {
-        // You need to reload page for seeing which items are removed (that you have clicked on)
-          await fetch(`http://localhost:9090/activities/deleteactivity/${id}`, {
+          await fetch(API.activities.deleteativity + id , {
               method: "DELETE",
               credentials: "include",
           })
@@ -54,38 +52,28 @@ export default class MyActivities extends Component {
 
       showAll = async () => {
         console.log('all')
-        const user_id = 9
-        await fetch(`http://localhost:9090/activities/all/${user_id}`)
+        await fetch( API.activities.all + API.userId )
         .then(response => response.json())
-        .then( (data) => {
-          // console.log(data)
-          if ( data.length === 0 ) {
-            return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
-          } else {
-            this.setState({ activities: data })
-          }
-        })
+        .then( data => this.setState({ activities: data }))
       }
 
       showPending = async () => {
         console.log('pending')
-        const user_id = 9
-        await fetch(`http://localhost:9090/activities/pending/${user_id}`)
+        await fetch(API.activities.pending + API.userId)
         .then(response => response.json())
         .then( data => this.setState({ activities: data }))
       }
   
       showDone = async () => {
         console.log('completed')
-        const user_id = 9
-        await fetch(`http://localhost:9090/activities/done/${user_id}`)
+        await fetch(API.activities.done + API.userId)
         .then(response => response.json())
         .then( data => this.setState({ activities: data }))
       }
 
       //ticks all
       completeActivity = async (activity) => {
-        await fetch(`http://localhost:9090/activities/completed/${activity.id}`, {
+        await fetch(API.activities.completed + activity.id, {
           method: "PATCH",
           credentials: "include",
           body: JSON.stringify({
@@ -99,7 +87,6 @@ export default class MyActivities extends Component {
         .then( data => {
           if ( data.response === 1 ) {
             let tmpActivities = this.state.activities;
-            // const found = tmpActivities.find(element => element.id == activity.id);
             let index = tmpActivities.indexOf(activity);
             activity.done = 1;
             activity[index] = activity;
@@ -109,8 +96,6 @@ export default class MyActivities extends Component {
           }
         })
       } 
-
-      // console.log({ done: data })
 
       handleChange = (e) => {
         this.setState({ value: e.target.value })
