@@ -31,7 +31,7 @@ export default class App extends Component {
             <Link to= "/login" >Login</Link>
             <Link to="/signup" >Signup</Link>
             <Link to="/" >Home</Link> 
-            <Link to="/logout" >Logout</Link>
+            {/* <Link to="/logout" >Logout</Link> */}
           </nav>
 
           <Switch>
@@ -40,7 +40,7 @@ export default class App extends Component {
             </Route>
 
             <Route path="/login" >
-              <Login />  {/* setUserId={this.setUserId} */}
+              <Login /> 
             </Route>
 
             <Route path="/signup">
@@ -48,9 +48,7 @@ export default class App extends Component {
             </Route>
 
             <Route path="/profile">
-              <Profile 
-                // user={this.state.user}
-              />
+              <Profile />
             </Route>
             
             <Route path="/newactivity">
@@ -69,9 +67,9 @@ export default class App extends Component {
               <ChangePW />
             </Route>
 
-            <Route path="/logout">
+            {/* <Route path="/logout">
               <Logout />
-            </Route>
+            </Route> */}
 
           </Switch>
 
