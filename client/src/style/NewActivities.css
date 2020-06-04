@@ -18,7 +18,6 @@
 
 #activities-container .Collapsible {
     margin-bottom: 50px;
-
 }
 
 #own,
@@ -105,10 +104,11 @@
     margin-left: -13px;
 }
 
+
 #specific input {
     background-color: white;
     border: none;
-    width: 40vw;
+    width: 30vw;
     outline: none;
     text-align: center;
 }

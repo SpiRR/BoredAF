@@ -1,4 +1,5 @@
 import React,{ Component } from 'react';
+import { Redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import API from '../api/api.js';
 import '../style/Login.css';
@@ -10,7 +11,8 @@ export default class Login extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            redirect: null
         }
         
         this.handleSubmit = this.handleSubmit.bind( this );
@@ -41,9 +43,16 @@ export default class Login extends Component {
         .then( response => response.json() )
         .then( data => {
             console.log( data );
+            this.setState({
+                redirect: "/profile"
+            })
           })
       }
     render () {
+
+        if (this.state.redirect) {
+            return <Redirect to={ this.state.redirect } />
+          }
 
         return (
             <div id="login-container">

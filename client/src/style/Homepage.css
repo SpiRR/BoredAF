@@ -1,6 +1,16 @@
 #homepage-container {
-    width: 50vw;
-    background-color: white;
+    width: 55vw;
     margin: auto;
+    /* background-color: #faf; */
+    text-align: center;
+    height: 12vh;
     margin-top: 50px;
+}
+
+#homepage-container img {
+    width: 7vw;
+    display: inline-block;
+    position: relative;
+    right: 2px;
+    opacity: 0.7;
 }

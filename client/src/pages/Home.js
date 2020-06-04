@@ -1,27 +1,22 @@
 import React,{ Component } from 'react';
+import Signup from "./Signup.js";
+import YAY from "../images/yay.png";
 import '../style/Homepage.css';
 
 export default class Homepage extends Component {  
     render () {
         return (
             <div id="homepage-container">
-                <h3>Home</h3>
+                <h3>Tired of being bored?</h3>
+                <h5>I'm here to tell you that there's nothing wrong with being bored! </h5>
+                <h5>but... if you REALLY want something to do - then let's get you going!</h5>
 
+                <img src={YAY} alt="duh"/>
+
+                <Signup />
+                {/* <p><i>Bored of being bored because being bored is boring!</i></p> */}
                 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                    Integer euismod quis erat non commodo. 
-                    Duis posuere pulvinar velit non blandit. 
-                    Fusce sem libero, pharetra ac vestibulum nec, 
-                    pellentesque quis magna. Sed at efficitur quam. 
-                    Proin blandit lorem elementum sapien tincidunt, 
-                    in varius risus interdum. Vestibulum tortor urna,
-                    lobortis sit amet vestibulum vel, eleifend id ex. 
-                    Pellentesque scelerisque facilisis turpis vitae faucibus. 
-                    Curabitur massa tortor, viverra quis lorem fermentum, 
-                    egestas malesuada ex. Class aptent taciti sociosqu ad litora 
-                    torquent per conubia nostra, per inceptos himenaeos. 
-                    Morbi tempor tellus sed placerat congue. 
-                    Duis ut dictum velit. </p>
+               
             </div>
         );
     }

@@ -12,9 +12,11 @@ export default class RandomActivity extends Component {
 
         this.state = {
             activity: '',
+            type: ''
         }
 
         this.getRandom = this.getRandom.bind( this )
+        this.handleChange = this.handleChange.bind( this );
     }
 
     getRandom = async () => {
@@ -24,10 +26,10 @@ export default class RandomActivity extends Component {
                 this.setState({
                     activity: data.activity,
                     type: data.type
-                })); 
+                })
+            ); 
     }
 
-    // Need to check if its empty
     addActivity = async () => {
         if ( this.state.activity ) {
             await fetch( API.activities.add + API.userId, {
@@ -55,12 +57,10 @@ export default class RandomActivity extends Component {
         }
     }
 
-    handleActivity = (e) => {
-        this.setState({ activity: e.target.value });
-    }
-    
-    handleType = (e) => {
-        this.setState({ type: e.target.value });
+    handleChange = (e) => {
+        this.setState({ 
+            [e.target.name] : e.target.value
+        });
     }
 
     render () {
@@ -75,13 +75,13 @@ export default class RandomActivity extends Component {
                 <form>
                     <input 
                         disabled 
-                        onChange={ this.handleActivity.bind( this ) } 
+                        onChange={ this.handleChange.bind( this ) } 
                         value={ this.state.activity } 
                         placeholder={ activity } 
                     />
 
                     <p 
-                        onChange={ this.handleType.bind( this ) } 
+                        onChange={ this.handleChange.bind( this ) } 
                         value={ this.state.type }>
                         { this.state.type } 
                     </p>

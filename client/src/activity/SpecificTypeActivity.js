@@ -11,8 +11,6 @@ export default class SpecificTypeActivity extends Component {
 
         this.state = {
             activity: '',
-            type: '',
-            open: false
         }
         this.getSpecific = this.getSpecific.bind( this );
     } 

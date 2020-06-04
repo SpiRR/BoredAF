@@ -28,10 +28,10 @@ export default class App extends Component {
         <div>
           <nav>
             <Link to="/profile" >Profile</Link>
-            <Link to= "/login" >Login</Link>
-            <Link to="/signup" >Signup</Link>
+            {/* <Link to= "/login" >Login</Link> */}
+            {/* <Link to="/signup" >Signup</Link> */}
             <Link to="/" >Home</Link> 
-            {/* <Link to="/logout" >Logout</Link> */}
+            <Link to="/logout" >Logout</Link>
           </nav>
 
           <Switch>
@@ -67,9 +67,9 @@ export default class App extends Component {
               <ChangePW />
             </Route>
 
-            {/* <Route path="/logout">
-              <Logout />
-            </Route> */}
+            <Route path="/logout">
+              <Login />
+            </Route>
 
           </Switch>
 

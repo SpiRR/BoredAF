@@ -6,15 +6,6 @@ import '../style/NewActivities.css';
 
 export default class EnteredActivity extends Component {
 
-    constructor( props ) {
-        super( props );
-
-        this.state = {
-            activity: '',
-            type: ''
-        }
-    }
-
     addActivity = async () => {
         if ( this.state.activity ) {
             await fetch( API.activities.add + API.userId, {
