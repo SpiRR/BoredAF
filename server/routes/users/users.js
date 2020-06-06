@@ -102,7 +102,7 @@ router.post("/login", async (req, res) => {
 
 });
 
-
+// refacor?? 
 router.get("/sess/", (req, res) => {
     const sess = req.session;
 

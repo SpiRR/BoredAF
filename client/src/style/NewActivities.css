@@ -17,7 +17,21 @@
 }
 
 #activities-container .Collapsible {
-    margin-bottom: 50px;
+    margin: 35px auto;
+    cursor: pointer;
+    text-align: center;
+}
+
+#activities-container .Collapsible__contentOuter {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#own, #specific {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 #own,
@@ -53,15 +67,9 @@
     width: 2vw;
 }
 
-#random p {
-    /* text-align: center; */
-    margin-top: 10px;
-    margin-left: 17%;
-}
-
 #random input {
     text-align: center;
-    width: 20vw;
+    width: 50%;
     height: 5vh;
     background-color: white;
     border: none;
@@ -70,11 +78,13 @@
 
 #random #randomBtn {
     margin-bottom: 10px;
-    background-color: lavender;
+    background-color: white;
     outline: none;
     border: none;
-    margin-left: 15%;
-    width: 5vw;
+}
+
+#random form {
+    width: 100%;
 }
 
 #random .boot-btn,
@@ -82,13 +92,6 @@
     width: 10vw;
 }
 
-#random .boot-btn {
-    margin-left: 10%;
-}
-
-#specific .boot-btn {
-    margin-left: 12%;
-}
 
 #specific {
     margin-top: 20px;
@@ -102,13 +105,13 @@
 
 #specific .type-container .btn-link {
     margin-left: -13px;
+    padding: 0 20px;
 }
-
 
 #specific input {
     background-color: white;
     border: none;
-    width: 30vw;
+    width: 100%;
     outline: none;
     text-align: center;
 }

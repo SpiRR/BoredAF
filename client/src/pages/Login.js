@@ -21,19 +21,20 @@ export default class Login extends Component {
         this.handleChange = this.handlePassword.bind( this );
       }
     
-      handleEmail = (e) => {
+    handleEmail = (e) => {
         this.setState({ 
             email: e.target.value, 
         });
     }
-      handlePassword = (e) => {
+    
+    handlePassword = (e) => {
         this.setState({ 
             password: e.target.value 
         });
     }
     
     
-      handleSubmit = async (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
 
         const userCredentials = {
@@ -46,7 +47,7 @@ export default class Login extends Component {
                 console.log( res );
                 console.log( res.data );
                 this.setState({ redirect: "/profile" })
-            });
+        });
     }
     
     

@@ -79,8 +79,7 @@ export default class RandomActivity extends Component {
         return (
             <div id="random">
                 
-                <Button id="randomBtn" variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button>
-
+                <Button id="randomBtn" variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button> <br />
                 <form>
                     <input 
                         disabled 

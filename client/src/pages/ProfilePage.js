@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Redirect } from "react-router-dom";
-import Button from 'react-bootstrap/Button';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
