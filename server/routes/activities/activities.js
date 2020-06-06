@@ -11,8 +11,10 @@ router.get('/', (req, res) => {
 router.post("/add/:id", async (req, res) => {
     const { activity, type } = req.body;
     const { id } = req.params;
+    const sess = req.session;
     const done = false;
 
+    if ( sess.authenticated && id == sess.userId ) {
         try {
             const newActivity = await Activity.query().insert({
                 activity, 
@@ -28,7 +30,10 @@ router.post("/add/:id", async (req, res) => {
         } catch (error) {
             if (err) {console.log("error in adding ectivity"); return}
             console.log("Success");
+        }
 
+    } else {
+        res.status(404).send({response: 'Could not add activity'});
     }
 });
 

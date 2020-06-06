@@ -18,3 +18,13 @@
 #profile-container h5 {
     margin-top: 20px;
 }
+
+#profile-container #logout {
+    position: absolute;
+    right: 15px;
+    color: brown;
+    font-weight: 600;
+    margin-left: 15px;
+    left: 33%;
+    top: 105px;
+}

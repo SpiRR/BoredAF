@@ -3,6 +3,7 @@ import Delete from '../images/delete.svg';
 import Completed from '../images/completed.svg';
 import Pending from '../images/pending.svg';
 import API from '../api/api.js';
+import axios from 'axios';
 import '../style/MyActivities.css';
 
 export default class MyActivities extends Component {
@@ -13,7 +14,6 @@ export default class MyActivities extends Component {
         this.state = {
           activities: [],
           activity: '',
-          emptyData: [],
           done: false,
         };
 
@@ -21,18 +21,20 @@ export default class MyActivities extends Component {
         this.completeActivity = this.completeActivity.bind( this );
       }
 
-      componentDidMount() {
-        fetch ( API.activities.all + API.userId )
-          .then( response => response.json() )
-          .then( data  => {
-            if ( data.length === 0 ) {
-              return this.setState({ emptyData: 'You dont have any activities... yet! :) ' })
-            } else {
-              this.setState({ activities: data })
-            }
-          })
+      getAllMyActivities = () => {
+        axios.get( API.activities.all + this.state.userId, { withCredentials: true } )
+        .then( res => this.setState({ activities: res.data }) )
       }
-                          // needs to be activityid?
+
+      componentDidMount() {
+        axios.get( API.users.session, { withCredentials: true } )
+        .then(res => {
+          const sess = res.data   
+          this.setState({ userId: sess.userId });
+          this.getAllMyActivities()
+        })
+      } 
+                         
       deleteActivity = async (id) => {
           await fetch( API.activities.deleteativity + id , {
               method: "DELETE",
@@ -52,21 +54,21 @@ export default class MyActivities extends Component {
 
       showAll = async () => {
         console.log('all')
-        await fetch( API.activities.all + API.userId )
+        await fetch( API.activities.all + this.state.userId )
         .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }
 
       showPending = async () => {
         console.log('pending')
-        await fetch( API.activities.pending + API.userId)
+        await fetch( API.activities.pending + this.state.userId)
         .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }
   
       showDone = async () => {
         console.log('completed')
-        await fetch( API.activities.done + API.userId)
+        await fetch( API.activities.done + this.state.userId)
         .then( response => response.json() )
         .then( data => this.setState({ activities: data }))
       }

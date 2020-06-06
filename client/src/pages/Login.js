@@ -1,6 +1,7 @@
 import React,{ Component } from 'react';
 import { Redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 import API from '../api/api.js';
 import '../style/Login.css';
 
@@ -16,12 +17,18 @@ export default class Login extends Component {
         }
         
         this.handleSubmit = this.handleSubmit.bind( this );
-        this.handleChange = this.handleChange.bind( this );
+        this.handleChange = this.handleEmail.bind( this );
+        this.handleChange = this.handlePassword.bind( this );
       }
     
-      handleChange = (e) => {
+      handleEmail = (e) => {
         this.setState({ 
-            [e.target.name] : e.target.value
+            email: e.target.value, 
+        });
+    }
+      handlePassword = (e) => {
+        this.setState({ 
+            password: e.target.value 
         });
     }
     
@@ -29,25 +36,20 @@ export default class Login extends Component {
       handleSubmit = async (e) => {
         e.preventDefault();
 
-        await fetch(API.users.login , {
-            method: "POST",
-            credentials: "include",
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password,
-            }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .then( response => response.json() )
-        .then( data => {
-            console.log( data );
-            this.setState({
-                redirect: "/profile"
-            })
-          })
-      }
+        const userCredentials = {
+            email: this.state.email,
+            password: this.state.password
+        }
+
+        axios.post( API.users.login, { email: userCredentials.email, password: userCredentials.password  }, {withCredentials: true}  ) // not reciving email and pw
+            .then(res => {
+                console.log( res );
+                console.log( res.data );
+                this.setState({ redirect: "/profile" })
+            });
+    }
+    
+    
     render () {
 
         if (this.state.redirect) {
@@ -65,7 +67,7 @@ export default class Login extends Component {
                         type="text"
                         name="email"
                         value={ this.state.email }
-                        onChange={ this.handleChange }
+                        onChange={ this.handleEmail }
                     />
 
                     <input className="form-control"
@@ -73,14 +75,14 @@ export default class Login extends Component {
                         type="password"
                         name="password"
                         value={ this.state.password }
-                        onChange={ this.handleChange }
+                        onChange={ this.handlePassword }
                     />
 
                    <Button variant="success" type="submit">Login</Button>
                    
                 </form>
 
-                <a href="/signup">Not a member yet?</a>
+                <a href="/">Not a member yet?</a>
             </div>
         );
     }

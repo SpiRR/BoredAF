@@ -1,10 +1,11 @@
 #signup-container {
     width: 25vw;
-    height: 40vh;
+    height: 42vh;
     display: block;
     text-align: center;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
     border: 1px dotted grey;
     /* float: left; */
 }
@@ -19,7 +20,6 @@
     margin-right: auto;
     width: 20vw;
 }
-
 
 .form-control,
 #dropdown-basic {

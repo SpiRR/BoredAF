@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import Swal from 'sweetalert2';
 import API from '../api/api.js';
+import axios from "axios";
 import '../style/NewActivities.css';
 
 export default class SpecificTypeActivity extends Component {
@@ -14,6 +15,14 @@ export default class SpecificTypeActivity extends Component {
         }
         this.getSpecific = this.getSpecific.bind( this );
     } 
+
+    componentDidMount() {
+        axios.get( API.users.session, { withCredentials: true } )
+        .then(res => {
+          const sess = res.data   
+          this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
+        })
+      } 
 
     getSpecific = async (type) => {
         // console.log(this.type)
@@ -29,7 +38,7 @@ export default class SpecificTypeActivity extends Component {
 
     addActivity = async () => {
         if ( this.state.activity ) {
-            await fetch( API.activities.add + API.userId, {
+            await fetch( API.activities.add + this.state.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({

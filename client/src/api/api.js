@@ -1,6 +1,4 @@
 export default {
-    userId : 1,
-
     activities: {
         add: 'http://localhost:9090/activities/add/',
         all: 'http://localhost:9090/activities/all/',
@@ -14,7 +12,9 @@ export default {
         profile: 'http://localhost:9090/users/profile/',
         changePW: 'http://localhost:9090/users/changepw/',
         register: 'http://localhost:9090/users/register',
-        login: 'http://localhost:9090/users/login'
+        login: 'http://localhost:9090/users/login',
+        logout: 'http://localhost:9090/users/logout',
+        session: 'http://localhost:9090/users/sess'
     },
 
     boredAPI: {

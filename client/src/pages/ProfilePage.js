@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 import Add from '../images/add.svg';
 import Settings from '../images/settings.svg';
 import MyActivities from '../activity/MyActivities.js';
 import API from '../api/api.js';
+import axios from 'axios';
 import '../style/Profile.css';
 
 export default class Profile extends Component {
@@ -11,36 +14,50 @@ export default class Profile extends Component {
     super(props)
 
     this.state = {
-      email: '',
-      nickname: ''
+      userNickname: '',
+      userEmail: '',
+      userId: '',
     }
   }
 
+  // check if user is logged in
+  componentDidMount() {
+    axios.get( API.users.session, { withCredentials: true } )
+    .then(res => {
+      const sess = res.data;  
+      this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
+    })
+  } 
+  
   // Fetching user-info
-  componentDidMount () {   
-        fetch ( API.users.profile + API.userId, {
-          credentials: "include",
-        })
-          .then( response => response.json() )
-          .then( data => this.setState({ 
-            email: data.email, 
-            nickname: data.nickname 
-          }));    
+  componentDidUpdate ( prevState ) {   
+     if (prevState.userId !== this.state.userId) {
+      axios.get( API.users.profile + this.state.userId, { withCredentials: true })
+        .then( res => {
+            console.log(res.data)
+        })  
+      } 
     }
-
 
     render () {
 
+      if (this.state.redirect) {
+        return <Redirect to={ this.state.redirect } />
+      }
+
         return (
             <div id="profile-container">
+
+              <a id="logout" href="/logout">Logout</a>
+              
               <h3>Profile page</h3>
 
-              <p>{this.state.email}</p>
+              <p>{ this.state.userEmail }</p>
 
-              <h5>Hi {this.state.nickname} !
+              <h5>Hi { this.state.userNickname } !
 
-              <a href="/settings"><img src={Settings} alt="Profile settings"/></a>
-              <a href="/newactivity"><img src={Add} alt="Add activity"/></a>
+              <a href="/settings"><img src={ Settings } alt="Profile settings"/></a>
+              <a href="/newactivity"><img src={ Add } alt="Add activity"/></a>
               
               </h5>
 

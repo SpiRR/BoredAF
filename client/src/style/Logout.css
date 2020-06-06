@@ -1,0 +1,21 @@
+#logout-container {
+    width: 55vw;
+    margin: auto;
+    /* background-color: #faf; */
+    text-align: center;
+    height: 12vh;
+    margin-top: 150px;
+}
+
+
+
+#logout-container img {
+    position: relative;
+    top: 70px;
+    left: 13px;
+}
+
+#logout-container a {
+    position: absolute;
+    margin-left: 2%;
+}

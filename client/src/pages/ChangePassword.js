@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
 import API from '../api/api.js';
+import axios from "axios";
 import '../style/Changepw.css';
 
 export default class ChangePw extends Component {
@@ -17,6 +18,14 @@ export default class ChangePw extends Component {
         this.handleChange = this.handleChange.bind( this )
       }
 
+    componentDidMount() {
+        axios.get( API.users.session, { withCredentials: true } )
+        .then(res => {
+            const sess = res.data   
+            this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
+        })
+    }
+
     handleChange = e => {
         this.setState({ 
             [ e.target.name ] : e.target.value
@@ -26,7 +35,7 @@ export default class ChangePw extends Component {
     handleSubmit = async e => {
         e.preventDefault();
 
-        await fetch( API.users.changePW + API.userId , {
+        await fetch( API.users.changePW + this.state.userId , {
             method: "PATCH",
             credentials: "include",
             body: JSON.stringify({

@@ -66,9 +66,11 @@ router.post("/register", async (req, res) => {
     }
 });
 
+
 // Login
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
+    const sess = req.session;
 
     if ( email && password ) {
         const doesUserExists = await User.query().select().where({ email: email }).limit(1);
@@ -83,46 +85,67 @@ router.post("/login", async (req, res) => {
                 return res.status(500).send({response: 'Internal error'});
             }
 
-            if ( !isSame ) {
-                return res.status(404).send({response: 'Invalid login!'});
-
+            if (!isSame) {
+                return res.status(404).send({});
             } else {
-
-                const userObj = {
-                    email: foundUser.email,
-                    auth : true,
-                    user_id : foundUser.id
-                }
-
-                return res.status(200).send({ user: userObj });
+                sess.email = foundUser.email;
+                sess.nickname = foundUser.nickname;
+                sess.authenticated = true;
+                sess.userId = foundUser.id;
+                return res.status(200).send({ email: foundUser.email, id: foundUser.id, nickname: foundUser.nickname }); 
             }
         });
 
     } else {
-        return res.status(404).send({ response: 'Missing credentials!' });
+        return res.status(404).send({ response: 'Missing credentials in login!' });
     }
 
 });
 
 
+router.get("/sess/", (req, res) => {
+    const sess = req.session;
+
+    if ( sess.authenticated ) {
+        return res.send({email: sess.email, userId: sess.userId, nickname: sess.nickname, session: sess.cookie})
+    } else {
+        sess.destroy(function(err) {
+            if(err) {
+                return next(err);
+            } else {
+                req.session = null; 
+                console.log("logout successful");
+                return res.status(200).setHeader('set-cookie', 'mycookie=; max-age=0');
+            }
+        });
+    }
+});
+
 
 // User info
 router.get("/profile/:id", async (req, res) => {
     const { id } = req.params;
-
-    let user = await User.singleOrDefault({ id: id });
-    res.status(200).send({
-        email: user.email,
-        nickname: user.nickname
-    }); 
+    const sess = req.session;
+    
+    if ( sess.authenticated && id == sess.userId ) {
+        let user = await User.singleOrDefault({ id: id });
+        res.status(200).send({
+            email: user.email,
+            nickname: user.nickname
+        })
+    } else {
+        res.status(404).send({response: 'Could not find profile'});
+    }    
 });
 
 
 // Change password
 router.patch("/changepw/:id", async (req, res) => {
     const id = req.params.id;
+    const sess = req.session;
     const { newPassword, repeatNewPassword } = req.body;
 
+    if ( sess.authenticated && id == sess.userId ) { 
       if ( newPassword && repeatNewPassword && newPassword === repeatNewPassword ) {
             if ( newPassword.length < 8 ) {
                 return res.status(400).send({ response: "Password does not fulfill the requirements" });
@@ -158,34 +181,34 @@ router.patch("/changepw/:id", async (req, res) => {
                 }
             })
         }
-    } else if (newPassword !== repeatNewPassword) {
-        return res.status(404).send({ response: "Password and repeat password are not the same" });
+        } else if (newPassword !== repeatNewPassword) {
+            return res.status(404).send({ response: "Password and repeat password are not the same" });
 
-    } else if (!newPassword || !repeatNewPassword) {
-        return res.status(404).send({ response: "No input value" });
+        } else if (!newPassword || !repeatNewPassword) {
+            return res.status(404).send({ response: "No input value" });
 
+        } else {
+            return res.status(404).send({ response: "Missing fields" });
+
+        }
     } else {
-        return res.status(404).send({ response: "Missing fields" });
-
+        res.status(404).send({response: 'Could not reset password'});
     }
 });
 
 // Logout
-router.post("/users/logout", function(req, res) {
-    const session = req.session;
-
-    if (session) {
-        session.destroy(function(err) {
-            if(err) {
-                return next(err);
-
-            } else {
-                req.session = null; 
-                console.log("logout successful");
-                return res.redirect("/");
-            }
+router.get("/logout", function(req, res) {
+   
+    if (req.session) {
+        // delete session object
+        req.session.destroy(function(err) {
+          if(err) {
+            return next(err);
+          } else {
+            return res.status(200).setHeader('set-cookie', 'mycookie=; max-age=0');
+          }
         });
-    }  
+      }
 });
 
 module.exports = router;

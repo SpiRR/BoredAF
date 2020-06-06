@@ -1,12 +1,16 @@
 nav {
     height: 5vh;
     position: relative;
+    background-color: darkkhaki;
 }
 
 nav a {
     text-transform: none;
     text-decoration: none;
-    color: indigo;
-    margin-right: 15px;
-    float: right;
+    color: white;
+    font-weight: 500;
+    margin-left: 15px;
+    left: 47%;
+    top: 9px;
+    position: relative;
 }

@@ -106,6 +106,8 @@ export default class Signup extends Component {
                     <Button variant="success" type="submit">Signup</Button>
 
                 </form>
+
+                <a href="/login">Already a member?</a>
             </div>
         );
     }

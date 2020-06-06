@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Random from '../images/random.svg';
 import Swal from 'sweetalert2';
 import API from '../api/api.js';
+import axios from "axios";
 import '../style/NewActivities.css';
 
 export default class RandomActivity extends Component {
@@ -18,6 +19,14 @@ export default class RandomActivity extends Component {
         this.getRandom = this.getRandom.bind( this )
         this.handleChange = this.handleChange.bind( this );
     }
+    
+    componentDidMount() {
+        axios.get( API.users.session, { withCredentials: true } )
+        .then(res => {
+            const sess = res.data   
+            this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
+        })
+    } 
 
     getRandom = async () => {
         await fetch( API.boredAPI.randomActivity )
@@ -32,7 +41,7 @@ export default class RandomActivity extends Component {
 
     addActivity = async () => {
         if ( this.state.activity ) {
-            await fetch( API.activities.add + API.userId, {
+            await fetch( API.activities.add + this.state.userId, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify({
