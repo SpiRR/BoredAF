@@ -41,7 +41,7 @@ app.use(session({
     secret: cookie.cookieSecret,
     store: store,
     resave: true,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
         domain: 'localhost',
         path: '/',

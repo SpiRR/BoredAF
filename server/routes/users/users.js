@@ -111,10 +111,10 @@ router.get("/sess/", (req, res) => {
     } else {
         sess.destroy(function(err) {
             if(err) {
-                return next(err);
+                return err;
             } else {
+                console.log(sess)
                 req.session = null; 
-                console.log("logout successful");
                 return res.status(200).setHeader('set-cookie', 'mycookie=; max-age=0');
             }
         });
@@ -203,7 +203,7 @@ router.get("/logout", function(req, res) {
         // delete session object
         req.session.destroy(function(err) {
           if(err) {
-            return next(err);
+            return err;
           } else {
             return res.status(200).setHeader('set-cookie', 'mycookie=; max-age=0');
           }

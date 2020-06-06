@@ -12,10 +12,9 @@
 #logout-container img {
     position: relative;
     top: 70px;
-    left: 13px;
+    left: -24px;
 }
 
 #logout-container a {
     position: absolute;
-    margin-left: 2%;
 }

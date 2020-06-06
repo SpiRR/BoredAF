@@ -28,7 +28,15 @@
     justify-content: center;
 }
 
-#own, #specific {
+#activities-container a {
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    outline: none;
+}
+
+#own,
+#specific {
     display: flex;
     flex-direction: row;
     justify-content: center;

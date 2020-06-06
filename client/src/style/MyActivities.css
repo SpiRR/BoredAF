@@ -1,4 +1,4 @@
-#list-container li{
+#list-container li {
     list-style: none;
     padding: 0;
     display: grid;
@@ -9,11 +9,12 @@
     font-weight: 600;
 }
 
-#list-container li .italic {
+#list-container li p {
     font-weight: 500;
 }
 
-#list-container p, #list-container b {
+#list-container p,
+#list-container b {
     text-align: left;
     display: inline-block;
     margin: auto;
@@ -45,6 +46,12 @@
 #list-container #delete img {
     cursor: pointer;
     width: 1vw;
+}
+
+#list-container #delete,
+#list-container #completed {
+    right: 0;
+    position: absolute;
 }
 
 #list-container #check {

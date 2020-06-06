@@ -12,6 +12,7 @@ export default class NewActivity extends Component {
         return (
             <div id="activities-container">
                 <h3>All right! What do you want to do?</h3>
+                <a href="/profile">back to profile...</a>
                 
                 <Collapsible trigger="Enter your own activity">
                     <EnteredActivity />
@@ -30,6 +31,7 @@ export default class NewActivity extends Component {
                         type={ this.props.type }
                     />
                 </Collapsible>
+
 
         
             </div>

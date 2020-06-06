@@ -25,7 +25,7 @@ export default class Profile extends Component {
     .then(res => {
       const sess = res.data;  
       this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
-    })
+    });
   } 
   
   // Fetching user-info
@@ -33,8 +33,8 @@ export default class Profile extends Component {
      if (prevState.userId !== this.state.userId) {
       axios.get( API.users.profile + this.state.userId, { withCredentials: true })
         .then( res => {
-            console.log(res.data)
-        })  
+            console.log(res.data);
+        });  
       } 
     }
 
