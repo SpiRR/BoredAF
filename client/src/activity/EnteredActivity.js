@@ -12,7 +12,7 @@ export default class EnteredActivity extends Component {
         .then(res => {
           const sess = res.data   
           this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
-        })
+        });
       } 
 
     addActivity = async () => {
@@ -81,6 +81,7 @@ export default class EnteredActivity extends Component {
                     <Button type="reset" variant="success" onClick={ () => this.addActivity() }>Add to my activities!</Button>
                 
                 </form>
+                
             </div>
         );
     }

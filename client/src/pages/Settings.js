@@ -9,8 +9,11 @@ export default class Settings extends Component {
         return (
             
             <div id="settings-container">
+
                 <h3>Settings</h3>
+
                 <Button href="/changepw">Change password</Button>
+                
             </div>
             
         );

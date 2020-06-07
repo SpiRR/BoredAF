@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import API from '../api/api.js';
 import axios from 'axios';
 import ByeBye from "../images/byebye.gif";
@@ -10,15 +10,18 @@ componentDidMount () {
     axios.get( API.users.logout, { withCredentials: true } )
     .then( res => {
         const user = res;
-        console.log(user)
+        console.log( user );
     })
 }
 
     render () {
         return (
             <div id="logout-container">
+
                 <h4>You have been logged out, successfully!</h4>
+
                 <a href="/">Return to home</a>
+
                 <img src={ByeBye} alt="bye bye" />
             </div>
         );

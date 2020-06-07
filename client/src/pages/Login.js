@@ -42,7 +42,7 @@ export default class Login extends Component {
             password: this.state.password
         }
 
-        axios.post( API.users.login, { email: userCredentials.email, password: userCredentials.password  }, {withCredentials: true}  ) // not reciving email and pw
+        axios.post( API.users.login, { email: userCredentials.email, password: userCredentials.password  }, { withCredentials: true }  ) // not reciving email and pw
             .then(res => {
                 console.log( res );
                 console.log( res.data );
@@ -53,7 +53,7 @@ export default class Login extends Component {
     
     render () {
 
-        if (this.state.redirect) {
+        if ( this.state.redirect ) {
             return <Redirect to={ this.state.redirect } />
           }
 
@@ -84,6 +84,7 @@ export default class Login extends Component {
                 </form>
 
                 <a href="/">Not a member yet?</a>
+                
             </div>
         );
     }

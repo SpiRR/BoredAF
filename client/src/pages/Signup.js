@@ -25,7 +25,7 @@ export default class Signup extends Component {
   
     handleChange = (e) => {
         this.setState({ 
-            [e.target.name] : e.target.value
+            [ e.target.name ] : e.target.value
         });
     }
 
@@ -53,21 +53,22 @@ export default class Signup extends Component {
                 title: 'Registration complete',
                 showConfirmButton: false,
                 timer: 2000
-            })
-            this.setState({user: data, redirect: "/login"})
+            });
+            this.setState({ user: data, redirect: "/login" })
             
-            })
+            });
         }
         
     
     render () {
 
-        if (this.state.redirect) {
+        if ( this.state.redirect ) {
             return <Redirect to={ this.state.redirect } />
           }
           
         return (
             <div id="signup-container">
+
                 <h3>Signup</h3>
 
                 <form onSubmit={ this.handleSubmit }>
@@ -108,6 +109,7 @@ export default class Signup extends Component {
                 </form>
 
                 <a href="/login">Already a member?</a>
+
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import React,{ Component } from "react";
+import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Switch,
@@ -8,7 +8,6 @@ import {
 import "./App.css";
 import "./style/Navbar.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Signup from "./pages/Signup.js";
 import Login from "./pages/Login.js";
 import Home from "./pages/Home.js";
 import Profile from "./pages/ProfilePage.js";
@@ -28,10 +27,7 @@ export default class App extends Component {
         <div>
           <nav>
             <Link to="/profile" >Profile</Link>
-            {/* <Link to= "/login" >Login</Link> */}
-            {/* <Link to="/signup" >Signup</Link> */}
             <Link to="/" >Home</Link> 
-            {/* <Link to="/logout" >Logout</Link> */}
           </nav>
 
           <Switch>
@@ -42,10 +38,6 @@ export default class App extends Component {
             <Route path="/login" >
               <Login /> 
             </Route>
-
-            {/* <Route path="/signup">
-              <Signup />
-            </Route> */}
 
             <Route path="/profile">
               <Profile />
@@ -74,6 +66,7 @@ export default class App extends Component {
           </Switch>
 
         </div>
+        
     </Router>
     );
   }

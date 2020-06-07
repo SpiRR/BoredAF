@@ -25,7 +25,6 @@ export default class SpecificTypeActivity extends Component {
       } 
 
     getSpecific = async (type) => {
-        // console.log(this.type)
         await fetch( API.boredAPI.type + type )
         .then( response =>  response.json() )
         .then( data  => 
@@ -79,7 +78,9 @@ export default class SpecificTypeActivity extends Component {
             <div id="specific">
 
                 <div>
+                    
                     <div className="type-container">
+
                         <Button
                             variant="link"
                             value={ this.state.type } 
@@ -146,6 +147,7 @@ export default class SpecificTypeActivity extends Component {
                     </div>
 
                     <div id="output">
+
                         <input 
                             className="form-control"
                             disabled
@@ -161,6 +163,7 @@ export default class SpecificTypeActivity extends Component {
                             onClick={ () => this.addActivity() }>
                             Add
                         </Button>
+
                     </div>
 
                 </div>

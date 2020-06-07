@@ -9,14 +9,14 @@ import '../style/NewActivities.css';
 export default class RandomActivity extends Component {
 
     constructor( props ) {
-        super( props )
+        super( props );
 
         this.state = {
             activity: '',
             type: ''
         }
 
-        this.getRandom = this.getRandom.bind( this )
+        this.getRandom = this.getRandom.bind( this );
         this.handleChange = this.handleChange.bind( this );
     }
     
@@ -52,7 +52,7 @@ export default class RandomActivity extends Component {
                     'Content-Type': 'application/json'
                 },
             })
-            .then( response => console.log(response.json()) )
+            .then( response => console.log( response.json() ) )
             .then( data => this.setState( data ) )
             .then( Swal.fire({
                 position: 'center',
@@ -68,7 +68,7 @@ export default class RandomActivity extends Component {
 
     handleChange = (e) => {
         this.setState({ 
-            [e.target.name] : e.target.value
+            [ e.target.name ] : e.target.value
         });
     }
 
@@ -79,7 +79,8 @@ export default class RandomActivity extends Component {
         return (
             <div id="random">
                 
-                <Button id="randomBtn" variant="light" onClick={ () => this.getRandom() }><img src={Random} alt="Random" /></Button> <br />
+                <Button id="randomBtn" variant="light" onClick={ () => this.getRandom() }><img src={ Random } alt="Random" /></Button> <br />
+                
                 <form>
                     <input 
                         disabled 
@@ -100,6 +101,7 @@ export default class RandomActivity extends Component {
                         onClick={ () => this.addActivity() }>
                         Add
                     </Button>
+
                 </form>
 
             </div>

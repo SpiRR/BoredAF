@@ -29,9 +29,9 @@ export default class MyActivities extends Component {
       componentDidMount() {
         axios.get( API.users.session, { withCredentials: true } )
         .then(res => {
-          const sess = res.data   
+          const sess = res.data;   
           this.setState({ userId: sess.userId });
-          this.getAllMyActivities()
+          this.getAllMyActivities();
         })
       } 
                          
@@ -48,29 +48,29 @@ export default class MyActivities extends Component {
             this.setState( state => {
               state.activities = activities;
               return state;
-            })
-          })          
+            });
+          });          
       }
 
       showAll = async () => {
         console.log('all')
         await fetch( API.activities.all + this.state.userId )
         .then( response => response.json() )
-        .then( data => this.setState({ activities: data }))
+        .then( data => this.setState({ activities: data }));
       }
 
       showPending = async () => {
         console.log('pending')
         await fetch( API.activities.pending + this.state.userId)
         .then( response => response.json() )
-        .then( data => this.setState({ activities: data }))
+        .then( data => this.setState({ activities: data }));
       }
   
       showDone = async () => {
         console.log('completed')
         await fetch( API.activities.done + this.state.userId)
         .then( response => response.json() )
-        .then( data => this.setState({ activities: data }))
+        .then( data => this.setState({ activities: data }));
       }
 
       //ticks all
@@ -96,7 +96,7 @@ export default class MyActivities extends Component {
           } else {
             console.error('Error')
           }
-        })
+        });
       } 
 
       handleChange = (e) => {
@@ -104,24 +104,26 @@ export default class MyActivities extends Component {
       }
 
     render () {
-        const { activities, emptyData } = this.state;
+        const { activities } = this.state;
 
         return (
             <div id="list-container">
 
                 <div id="sort">
+
                     <select name="done" id="dropdown" >
                       <option value="all" onClick={ () => this.showAll() } onChange={ this.handleChange.bind(this) }>All</option>
                       <option value="pending" onClick={ () => this.showPending() } onChange={ this.handleChange.bind(this) }>Pending</option>
                       <option value="done" onClick={ () => this.showDone() } onChange={ this.handleChange.bind(this) }>Completed</option>
                     </select>
-                </div>
 
-                <p><i>{emptyData}</i></p>
+                </div>
              
                 <ul>
                     { activities.map( activity => 
+
                         <li id="activity" key={ activity.id }>
+
                            <p>{ activity.activity }</p> 
                            
                            <p className="italic"> <i>{ activity.type }</i> </p>
@@ -140,8 +142,10 @@ export default class MyActivities extends Component {
                             </button>
 
                         </li>
-                    )}
+                    )};
+
                 </ul>
+
             </div>
             
         );

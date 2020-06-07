@@ -14,25 +14,25 @@ export default class ChangePw extends Component {
             repeatNewPassword: ''
         }
 
-        this.handleSubmit = this.handleSubmit.bind( this )
-        this.handleChange = this.handleChange.bind( this )
+        this.handleSubmit = this.handleSubmit.bind( this );
+        this.handleChange = this.handleChange.bind( this );
       }
 
     componentDidMount() {
         axios.get( API.users.session, { withCredentials: true } )
         .then(res => {
-            const sess = res.data   
+            const sess = res.data;   
             this.setState({ userEmail: sess.email, userNickname: sess.nickname, userId: sess.userId });
         })
     }
 
-    handleChange = e => {
+    handleChange = (e) => {
         this.setState({ 
             [ e.target.name ] : e.target.value
-        })
+        });
     }
 
-    handleSubmit = async e => {
+    handleSubmit = async (e) => {
         e.preventDefault();
 
         await fetch( API.users.changePW + this.state.userId , {
@@ -79,6 +79,7 @@ export default class ChangePw extends Component {
                     <Button type="submit">Change password</Button>
 
                 </form>
+                
             </div>
             
         );

@@ -10,7 +10,7 @@ import '../style/Profile.css';
 export default class Profile extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       userNickname: '',
@@ -40,7 +40,7 @@ export default class Profile extends Component {
 
     render () {
 
-      if (this.state.redirect) {
+      if ( this.state.redirect ) {
         return <Redirect to={ this.state.redirect } />
       }
 
@@ -56,10 +56,10 @@ export default class Profile extends Component {
               <h5>Hi { this.state.userNickname } !
 
               <a href="/settings"><img src={ Settings } alt="Profile settings"/></a>
+
               <a href="/newactivity"><img src={ Add } alt="Add activity"/></a>
               
               </h5>
-
 
               <div id="activity-container">
                 <MyActivities />
