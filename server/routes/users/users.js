@@ -107,13 +107,13 @@ router.get("/sess/", (req, res) => {
     const sess = req.session;
 
     if ( sess.authenticated ) {
-        return res.send({email: sess.email, userId: sess.userId, nickname: sess.nickname, session: sess.cookie})
+        return res.send({email: sess.email, userId: sess.userId, nickname: sess.nickname, session: sess.cookie});
     } else {
         sess.destroy(function(err) {
             if(err) {
                 return err;
             } else {
-                console.log(sess)
+                console.log(sess);
                 req.session = null; 
                 return res.status(200).setHeader('set-cookie', 'mycookie=; max-age=0');
             }
@@ -132,7 +132,7 @@ router.get("/profile/:id", async (req, res) => {
         res.status(200).send({
             email: user.email,
             nickname: user.nickname
-        })
+        });
     } else {
         res.status(404).send({response: 'Could not find profile'});
     }    
@@ -200,7 +200,7 @@ router.patch("/changepw/:id", async (req, res) => {
 router.get("/logout", function(req, res) {
    
     if (req.session) {
-        // delete session object
+        
         req.session.destroy(function(err) {
           if(err) {
             return err;
