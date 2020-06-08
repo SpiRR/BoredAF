@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
+import Swal from 'sweetalert2';
 import API from '../api/api.js';
 import axios from "axios";
 import '../style/Changepw.css';
@@ -11,7 +13,8 @@ export default class ChangePw extends Component {
 
         this.state = {
             newPassword: '',
-            repeatNewPassword: ''
+            repeatNewPassword: '',
+            redirect: null
         }
 
         this.handleSubmit = this.handleSubmit.bind( this );
@@ -47,16 +50,31 @@ export default class ChangePw extends Component {
             }
         })
         .then( response => response.json() )
-        .then( data => console.log( data ))
+        .then( data => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Password successfully changed',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            this.setState({ user: data, redirect: "/profile" })
+        })
     }
 
     render () {
+        
+        if ( this.state.redirect ) {
+            return <Redirect to={ this.state.redirect } />
+          }
 
         return (
 
             <div id="changepw-container">
                 
                 <h3>Change password</h3>
+
+                <a href="/profile">Back to profile...</a>
 
                 <form onSubmit={ this.handleSubmit }>
 

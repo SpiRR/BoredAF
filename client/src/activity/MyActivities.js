@@ -142,7 +142,7 @@ export default class MyActivities extends Component {
                             </button>
 
                         </li>
-                    )};
+                    )}
 
                 </ul>
 
