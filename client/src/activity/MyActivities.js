@@ -51,7 +51,7 @@ export default class MyActivities extends Component {
             });
           });          
       }
-
+      
       showAll = async () => {
         console.log('all')
         await fetch( API.activities.all + this.state.userId )

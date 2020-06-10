@@ -16,12 +16,12 @@ router.post("/add/:id", async (req, res) => {
 
     if ( sess.authenticated && id == sess.userId ) {
         try {
-            const newActivity = await Activity.query().insert({
+            const newActivity =  Activity.query().insert({
                 activity, 
                 type,
                 done,
                 user_id: id
-            });
+            })
 
             return res.status(200).send({
                 activity: newActivity.activity
